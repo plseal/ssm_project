@@ -4,10 +4,9 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lin.baseTest.SpringTestCase;
-import com.lin.domain.User;
+import com.lin.entity.UserEntity;
 
 /**
  * 功能概要：UserService单元测试
@@ -22,8 +21,9 @@ public class UserServiceTest extends SpringTestCase	{
 	
 	@Test
 	public void selectUserByIdTest(){
-		User user = userService.selectUserById(10);
-        logger.debug("查找结果" + user);
+		//User user = userService.getu(10);
+		UserEntity ue = userService.getById("张燕");
+        //logger.debug("PASS");
 	}
 	
 
