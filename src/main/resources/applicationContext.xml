@@ -8,7 +8,7 @@
  xmlns:mvc="http://www.springframework.org/schema/mvc" 
  xmlns:task="http://www.springframework.org/schema/task"
  xsi:schemaLocation="http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
       http://www.springframework.org/schema/context
       http://www.springframework.org/schema/context/spring-context-3.0.xsd
       http://www.springframework.org/schema/tx
@@ -19,35 +19,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
         http://www.springframework.org/schema/task
         http://www.springframework.org/schema/task/spring-task-3.0.xsd">
-
-	<bean id="jbpmSpringHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper"
-		lazy-init="true" autowire="default" dependency-check="default">
-		<property name="jbpmCfg">
-			<value>jbpm.cfg.xml</value>
-		</property>
-
-	</bean>
-
-	<bean id="processEngine" factory-bean="jbpmSpringHelper"
-		factory-method="createProcessEngine" />
-
-	<bean id="repositoryService" factory-bean="processEngine"
-		factory-method="getRepositoryService" /><!--流程管理，部署发布  -->
-
-	<bean id="executionService" factory-bean="processEngine"
-		factory-method="getExecutionService" /><!--流程实例管理  -->
-
-	<bean id="taskService" factory-bean="processEngine"
-		factory-method="getTaskService" /><!--任务管理  -->
-
-	<bean id="historyService" factory-bean="processEngine"
-		factory-method="getHistoryService" /><!--历史服务  -->
-
-	<bean id="identityService" factory-bean="processEngine"
-		factory-method="getIdentityService" /><!--身份管理  -->
-
-	
-
-
+    
+	<!--spring核心配置文件-->
+	<import resource="classpath*:conf/applicationContext-*.xml"/>                                                    
 
 </beans>

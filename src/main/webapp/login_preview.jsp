@@ -4,7 +4,7 @@
 <html >
 	<head>
 		<meta charset="utf-8" />
-		<title>安全隐患排查治理信息化平台</title>
+		<title>工作流信息化平台</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/icon.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
@@ -67,7 +67,7 @@
 		</script>
 	</head>
 <style type="text/css">
-body{ background:url(${pageContext.request.contextPath}/images/login.jpg);
+body{ background:url(${pageContext.request.contextPath}/images/login_preview1.gif);
 background-size:100% 100%;
 background-repeat:no-repeat;}
 html,body{
@@ -123,6 +123,27 @@ margin-bottom: 0px;
 		<input type="hidden" name="preview" class="form-control" value="true" placeholder="" />
     </td>
     </tr>
+     <tr>
+        <td>
+		<a href="#"  style="width:100%;" onclick="init('张三')">
+		<span style="font-size:8pt;">
+		    员工：张三</span>
+		</a>
+		<div class="space-4"></div>
+		
+    </td>
+    </tr>
+         <tr>
+        <td>
+		<a href="#"  style="width:100%;" onclick="init('李四')">
+		<span style="font-size:8pt;">
+		    审批者：李四</span>
+		</a>
+		<div class="space-4"></div>
+		
+    </td>
+    </tr>
+    
 	</table> 
         </form>
 
