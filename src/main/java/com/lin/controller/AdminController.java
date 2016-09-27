@@ -24,6 +24,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.zip.ZipInputStream;
+	/**
+	 * this is admin controller
+	 */
 @Controller
 @RequestMapping("admin")
 public class AdminController extends HttpServlet{
