@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="com.lin.util.common" %>
 <!DOCTYPE html>
 <html >
@@ -120,7 +120,7 @@ margin-bottom: 0px;
 		    登录系统</span>
 		</a>
 		<div class="space-4"></div>
-		<input type="hidden" name="preview" class="form-control" value="true" placeholder="" />
+		
     </td>
     </tr>
 	</table> 
