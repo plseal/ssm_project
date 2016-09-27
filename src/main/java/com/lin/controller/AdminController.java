@@ -1,4 +1,4 @@
-﻿package com.lin.controller;
+package com.lin.controller;
 
 import com.lin.entity.*;
 import com.lin.service.DanweiService;

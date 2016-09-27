@@ -43,34 +43,34 @@ import com.lin.util.common;
 public class RectiDangerController{ 
 	private static Logger logger = Logger.getLogger(RectiDangerController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="rectiDangerService")
-	private RectiDangerService rectiDangerService;//ÒµÎñÂß¼­
+	private RectiDangerService rectiDangerService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="rectiSearchService")
-	private RectiSearchService rectiSearchService;//ÒµÎñÂß¼­
+	private RectiSearchService rectiSearchService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="danweiService")
-	private DanweiService danweiService;//ÒµÎñÂß¼­
+	private DanweiService danweiService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="locationService")
-	private LocationService locationService;//ÒµÎñÂß¼­
+	private LocationService locationService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="myJbpmService")
-	private MyJbpmService myJbmpService;//ÒµÎñÂß¼­
+	private MyJbpmService myJbmpService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 
 	public RectiDangerController()
 	{
@@ -96,7 +96,7 @@ public class RectiDangerController{
 		
 		request.getSession().setAttribute("javaid", javaid);
 		
-		String taskname = "¿ªÊ¼½Úµã";
+		String taskname = "å¼€å§‹èŠ‚ç‚¹";
 		RectiDangerEntity entity = new RectiDangerEntity();
 		entity.setStarter(id);
 		entity.setJavaid(javaid);
@@ -123,22 +123,22 @@ public class RectiDangerController{
 		request.setAttribute("managerokdate", "");
 		
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		//List<LocationEntity>  locationList =locationService.getAll();
 		//request.setAttribute("locationList",locationList);
 
@@ -158,32 +158,32 @@ public class RectiDangerController{
 		
 		RectiDangerEntity entity = new RectiDangerEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiDangerService.setEntityFromRequest(request, entity);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("javaid", entity.getJavaid());
 		map.put("starter", entity.getStarter());
 		
-		//·¢ÆğÁ÷³Ì
+		//å‘èµ·æµç¨‹
 		ProcessInstance ins = executionService.startProcessInstanceByKey("rectidanger3", map);
 		logger.info("["+this.getClass().getName()+"][start_][process start]");
 		logger.info("["+this.getClass().getName()+"][start_][process id]:"+ins.getId());
 		
-		//È¡µÃ·¢ÆğÈËËùÔÚµ¥Î»µÄ[°²È«¹ÜÀí²¿ÃÅ¸ºÔğÈË]
+		//å–å¾—å‘èµ·äººæ‰€åœ¨å•ä½çš„[å®‰å…¨ç®¡ç†éƒ¨é—¨è´Ÿè´£äºº]
 		String approver1 = userService.getApprover1ById(entity.getStarter()).getId();
-		//Çåµ¥µÄÁ÷³ÌĞÅÏ¢³Ö¾Ã»¯
+		//æ¸…å•çš„æµç¨‹ä¿¡æ¯æŒä¹…åŒ–
 		entity.setProcessid(ins.getId());
-		entity.setTaskname("°²È«¹ÜÀí²¿ÃÅ¸ºÔğÈË:"+approver1+"ÉóÅú");
-		//javaid´æÔÚ
+		entity.setTaskname("å®‰å…¨ç®¡ç†éƒ¨é—¨è´Ÿè´£äºº:"+approver1+"å®¡æ‰¹");
+		//javaidå­˜åœ¨
 		if (rectiDangerService.checkIdExist(entity)>0) {
 			rectiDangerService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiDangerService.insert(entity);
 		} 
 		
-		//Íê³ÉµÚÒ»¸ö½Úµã
+		//å®Œæˆç¬¬ä¸€ä¸ªèŠ‚ç‚¹
 		Map<String, String> map2 = new HashMap<String, String>();
 		
 		map2.put("leader", approver1);
@@ -192,12 +192,12 @@ public class RectiDangerController{
 		logger.info("["+this.getClass().getName()+"][start_][task id]:"+taskId);
 		taskService.setVariables(taskId, map2);
 		
-		taskService.completeTask(taskId, "·¢ÆğÉêÇë");
+		taskService.completeTask(taskId, "å‘èµ·ç”³è¯·");
 		
 		
 		request.setAttribute("listRectiAc", "this_month");
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		common.clear_session(request);
@@ -214,44 +214,44 @@ public class RectiDangerController{
 		
 		RectiDangerEntity entity = new RectiDangerEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiDangerService.setEntityFromRequest(request, entity);
 		
 		
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiDangerService.checkIdExist(entity)>0) {
 			rectiDangerService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiDangerService.insert(entity);
 		}
 		
-		//Êı¾İ¿âµÄÉóÅúµÈÄÚÈİÈ¡µÃ
+		//æ•°æ®åº“çš„å®¡æ‰¹ç­‰å†…å®¹å–å¾—
 		RectiDangerEntity entitySaved = rectiDangerService.getById(entity.getJavaid());
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		//List<LocationEntity>  locationList =locationService.getAll();
 		//request.setAttribute("locationList",locationList);
 		
 		request.setAttribute("entity",entity);
 		
-		request.setAttribute("messeageForSave", "±£´æ³É¹¦£¡µã»÷°´Å¥²é¿´¡£");
+		request.setAttribute("messeageForSave", "ä¿å­˜æˆåŠŸï¼ç‚¹å‡»æŒ‰é’®æŸ¥çœ‹ã€‚");
 			
 		request = rectiDangerService.setRequestFromEntity(request, entitySaved);
 
@@ -262,7 +262,7 @@ public class RectiDangerController{
 
 
 
-	//É¾³ı£¨Òş»¼ĞÅÏ¢¹ÜÀíÒ³ÃæÓÃ£©
+	//åˆ é™¤ï¼ˆéšæ‚£ä¿¡æ¯ç®¡ç†é¡µé¢ç”¨ï¼‰
 	@RequestMapping("deleteListRectiDanger")
 	public String  deleteListRectiDanger(String listRectiAc,HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][deleteListRectiDanger][start]");
@@ -277,19 +277,19 @@ public class RectiDangerController{
 		//executionService.deleteProcessInstanceCascade(executionId);
 		//taskService.deleteTask(taskId);
 		RectiDangerEntity entity = rectiDangerService.getById(javaid);
-		//É¾³ırectiDangerµÄÊı¾İ
+		//åˆ é™¤rectiDangerçš„æ•°æ®
 		rectiDangerService.delete(entity,request);
-		//É¾³ıÒÑ¾­·¢ÆğµÄÁ÷³Ì
-		//ÏÂÁĞÇé¿ö²»ĞèÒªÉ¾³ıÁ÷³Ì
-		//processidÎª¿ÕµÄ
+		//åˆ é™¤å·²ç»å‘èµ·çš„æµç¨‹
+		//ä¸‹åˆ—æƒ…å†µä¸éœ€è¦åˆ é™¤æµç¨‹
+		//processidä¸ºç©ºçš„
 		if ( common.isEmpty(processid)) {
-			//²»É¾³ı
-			logger.info("["+this.getClass().getName()+"][deleteListRectiDanger][²»É¾³ı]");
+			//ä¸åˆ é™¤
+			logger.info("["+this.getClass().getName()+"][deleteListRectiDanger][ä¸åˆ é™¤]");
 		} else {
 			executionService.deleteProcessInstanceCascade(processid);
 		}
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -320,7 +320,7 @@ public class RectiDangerController{
 		
 		request = rectiSearchService.setRequestFromEntity(request, entity);
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -346,9 +346,9 @@ public class RectiDangerController{
 		String checkdate  = (String)request.getSession().getAttribute("s_checkdate");
 		String s_searchForAllFlg  = (String)request.getSession().getAttribute("s_searchForAllFlg");
 		
-		//ÉèÖÃµ±Ç°Ò³
+		//è®¾ç½®å½“å‰é¡µ
         int intPage = (page==null||page<=0)?1:page;
-        //ÉèÖÃÃ¿Ò³ÏÔÊ¾µÄÊıÁ¿
+        //è®¾ç½®æ¯é¡µæ˜¾ç¤ºçš„æ•°é‡
         int intPageSize = rows==null||rows<=0?10:rows;;
 		
 		logger.info("["+this.getClass().getName()+"][listRectiGet][listRectiAc]:"+listRectiAc);
@@ -378,7 +378,7 @@ public class RectiDangerController{
 	}
 	
 
-	//Íê³ÉÈÎÎñ
+	//å®Œæˆä»»åŠ¡
 	@RequestMapping("complete")
 	public String complete(String taskid, HttpServletRequest request) throws UnsupportedEncodingException {
 		logger.info("["+this.getClass().getName()+"][complete][start]");
@@ -391,7 +391,7 @@ public class RectiDangerController{
 		
 		RectiDangerEntity entity = new RectiDangerEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiDangerService.setEntityFromRequest(request, entity);
 		entity.setTaskid(taskid);
 		
@@ -408,15 +408,15 @@ public class RectiDangerController{
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 		
-		//È¡µÃ·¢ÆğÈËËùÔÚµ¥Î»µÄ[·Ö¹Ü°²È«Áìµ¼]
+		//å–å¾—å‘èµ·äººæ‰€åœ¨å•ä½çš„[åˆ†ç®¡å®‰å…¨é¢†å¯¼]
 		String approver2 = userService.getApprover2ById(entity.getStarter()).getId();
 
-		if (entity.getTaskname().contains("²¿ÃÅ¸ºÔğÈË") ){
-			if ( strTrans.equals("ÉóÅú") ){
+		if (entity.getTaskname().contains("éƒ¨é—¨è´Ÿè´£äºº") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				entity.setLeader(id);
 				entity.setLeadername(name);
 				entity.setLeaderokdate(df.format(date));
-				entity.setTaskname("·Ö¹ÜÁìµ¼:"+approver2+"ÉóÅú");
+				entity.setTaskname("åˆ†ç®¡é¢†å¯¼:"+approver2+"å®¡æ‰¹");
 			} else {
 				entity.setLeadername("");
 				entity.setLeaderokdate("");
@@ -426,12 +426,12 @@ public class RectiDangerController{
 			map.put("manager", approver2);
 			taskService.setVariables(taskid, map);
 			
-		} else if (entity.getTaskname().contains("·Ö¹ÜÁìµ¼") ){
-			if ( strTrans.equals("ÉóÅú") ){
+		} else if (entity.getTaskname().contains("åˆ†ç®¡é¢†å¯¼") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				entity.setManager(id);
 				entity.setManagername(name);
 				entity.setManagerokdate(df.format(date));
-				entity.setTaskname("·¢ÆğÈËÑéÊÕµ¼³öÉóÅúµ¥:"+entity.getStarter()+"¸ºÔğ");
+				entity.setTaskname("å‘èµ·äººéªŒæ”¶å¯¼å‡ºå®¡æ‰¹å•:"+entity.getStarter()+"è´Ÿè´£");
 			} else {
 				entity.setManager("");
 				entity.setManagername("");
@@ -443,10 +443,10 @@ public class RectiDangerController{
 			
 			taskService.setVariables(taskid, map);
 		
-		} else if (entity.getTaskname().contains("·¢ÆğÈËÑéÊÕµ¼³öÉóÅúµ¥") ) {
-			if  (strTrans.equals("½áÊø")) {
+		} else if (entity.getTaskname().contains("å‘èµ·äººéªŒæ”¶å¯¼å‡ºå®¡æ‰¹å•") ) {
+			if  (strTrans.equals("ç»“æŸ")) {
 				entity.setProcessid("");				
-				entity.setTaskname("·¢ÆğÈËÑéÊÕ½áÊøÁ÷³Ì¡£"+entity.getStarter());
+				entity.setTaskname("å‘èµ·äººéªŒæ”¶ç»“æŸæµç¨‹ã€‚"+entity.getStarter());
 				
 				entity.setStarterokdate(df.format(date));
 			} else {
@@ -454,10 +454,10 @@ public class RectiDangerController{
 				
 			}
 		}
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiDangerService.checkIdExist(entity)>0) {
 			rectiDangerService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiDangerService.insert(entity);
 		}
@@ -471,7 +471,7 @@ public class RectiDangerController{
 		request.setAttribute("entity", entity);
 		request.setAttribute("listRectiAc", "this_month");
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -497,30 +497,30 @@ public class RectiDangerController{
 		
 		RectiDangerEntity entity = rectiDangerService.getById(javaid);
 		entity.setTaskid(taskid);
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiDangerService.checkIdExist(entity)>0) {
 			rectiDangerService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiDangerService.insert(entity);
 		}
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		//List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		//request.setAttribute("yinhuanTypeList",yinhuanTypeList);
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		//List<LocationEntity>  locationList =locationService.getAll();
 		//request.setAttribute("locationList",locationList);
 		
@@ -552,26 +552,26 @@ public class RectiDangerController{
 		
 	    Map<String, Object> param = new HashMap<String, Object>();
 	    
-	    param.put("¤¢", entity.getDanwei());
-	    param.put("¤¤", entity.getStarter());
-	    param.put("¤¦", entity.getDangertype());
+	    param.put("ã‚", entity.getDanwei());
+	    param.put("ã„", entity.getStarter());
+	    param.put("ã†", entity.getDangertype());
 	    if (common.isEmpty(entity.getStartdate()) || common.isEmpty(entity.getEnddate())) {
-	    	param.put("¤¨", "");	
+	    	param.put("ãˆ", "");	
 	    } else {
-	    	param.put("¤¨", entity.getStartdate() + "ÖÁ" + entity.getEnddate());
+	    	param.put("ãˆ", entity.getStartdate() + "è‡³" + entity.getEnddate());
 	    }
-	    param.put("¤ª", entity.getLocation());
-	    param.put("¤«", entity.getOperator());
-	    param.put("¤­", entity.getPrecaution());
-	    param.put("¤¯", entity.getPrecautionchecker());
-	    param.put("¤±", entity.getInform());
-	    param.put("¤³", entity.getInformer()); 
-	    param.put("¤µ", entity.getLeaderokmessage()); 
-	    param.put("¤·", entity.getLeader()); 
-	    param.put("¤¹", entity.getLeaderokdate());
-	    param.put("¤»", entity.getManagerokmessage());
-	    param.put("¤½", entity.getManager());
-	    param.put("¤Ê", entity.getManagerokdate());
+	    param.put("ãŠ", entity.getLocation());
+	    param.put("ã‹", entity.getOperator());
+	    param.put("ã", entity.getPrecaution());
+	    param.put("ã", entity.getPrecautionchecker());
+	    param.put("ã‘", entity.getInform());
+	    param.put("ã“", entity.getInformer()); 
+	    param.put("ã•", entity.getLeaderokmessage()); 
+	    param.put("ã—", entity.getLeader()); 
+	    param.put("ã™", entity.getLeaderokdate());
+	    param.put("ã›", entity.getManagerokmessage());
+	    param.put("ã", entity.getManager());
+	    param.put("ãª", entity.getManagerokdate());
      
 	    	    
 	    String strModelFileOfRealServerPath = 
@@ -594,7 +594,7 @@ public class RectiDangerController{
 		
 		
 	    request.setAttribute("strRealHTTPPath", strRealHTTPPath);
-	    request.setAttribute("strFileNameForView", "Î£ÏÕ×÷ÒµÉóÅúµ¥");
+	    request.setAttribute("strFileNameForView", "å±é™©ä½œä¸šå®¡æ‰¹å•");
 	    
 	    logger.info("["+this.getClass().getName()+"][printword][end]");
 	    logger.info("["+this.getClass().getName()+"][printword][goto][printword.jsp]");
