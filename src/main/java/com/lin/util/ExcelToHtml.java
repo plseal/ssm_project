@@ -34,26 +34,26 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * @¹¦ÄÜÃèÊö POI ¶ÁÈ¡ Excel ×ª HTML Ö§³Ö 03xls ºÍ 07xlsx °æ±¾ °üº¬ÑùÊ½
- * @author Devil 34 * @´´½¨Ê±¼ä 2015/4/19 21:34
+ * @åŠŸèƒ½æè¿° POI è¯»å– Excel è½¬ HTML æ”¯æŒ 03xls å’Œ 07xlsx ç‰ˆæœ¬ åŒ…å«æ ·å¼
+ * @author Devil 34 * @åˆ›å»ºæ—¶é—´ 2015/4/19 21:34
  */
 public class ExcelToHtml {
 
     /**
-     * ²âÊÔ
+     * æµ‹è¯•
      * 
      * @param args
      */
     public static void main(String[] args) {
 
         String path = "C://jbpm//test.xlsx";// E://Microsoft Excel
-                                                        // ¹¤×÷±í.xlsx
+                                                        // å·¥ä½œè¡¨.xlsx
         InputStream is = null;
         String htmlExcel = null;
         try {
             File sourcefile = new File(path);
             is = new FileInputStream(sourcefile);
-            Workbook wb = WorkbookFactory.create(is);// ´ËWorkbookFactoryÔÚPOI-3.10°æ±¾ÖĞÊ¹ÓÃĞèÒªÌí¼Ódom4j
+            Workbook wb = WorkbookFactory.create(is);// æ­¤WorkbookFactoryåœ¨POI-3.10ç‰ˆæœ¬ä¸­ä½¿ç”¨éœ€è¦æ·»åŠ dom4j
             if (wb instanceof XSSFWorkbook) {
                 XSSFWorkbook xWb = (XSSFWorkbook) wb;
                 htmlExcel = ExcelToHtml.getExcelInfo(xWb, true);
@@ -74,17 +74,17 @@ public class ExcelToHtml {
     }
 
     /**
-     * ³ÌĞòÈë¿Ú·½·¨
+     * ç¨‹åºå…¥å£æ–¹æ³•
      * 
      * @param filePath
-     *            ÎÄ¼şµÄÂ·¾¶
+     *            æ–‡ä»¶çš„è·¯å¾„
      * @param isWithStyle
-     *            ÊÇ·ñĞèÒª±í¸ñÑùÊ½ °üº¬ ×ÖÌå ÑÕÉ« ±ß¿ò ¶ÔÆë·½Ê½
+     *            æ˜¯å¦éœ€è¦è¡¨æ ¼æ ·å¼ åŒ…å« å­—ä½“ é¢œè‰² è¾¹æ¡† å¯¹é½æ–¹å¼
      * @return
      *         <table>
      *         ...
      *         </table>
-     *         ×Ö·û´®
+     *         å­—ç¬¦ä¸²
      */
     public static String readExcelToHtml(String filePath, boolean isWithStyle) {
 
@@ -116,12 +116,12 @@ public class ExcelToHtml {
     public static String getExcelInfo(Workbook wb, boolean isWithStyle) {
 
         StringBuffer sb = new StringBuffer();
-        Sheet sheet = wb.getSheetAt(0);// »ñÈ¡µÚÒ»¸öSheetµÄÄÚÈİ
+        Sheet sheet = wb.getSheetAt(0);// è·å–ç¬¬ä¸€ä¸ªSheetçš„å†…å®¹
         int lastRowNum = sheet.getLastRowNum();
         Map<String, String> map[] = getRowSpanColSpanMap(sheet);
         sb.append("<table style='border-collapse:collapse;' width='100%'>");
-        Row row = null; // ¼æÈİ
-        Cell cell = null; // ¼æÈİ
+        Row row = null; // å…¼å®¹
+        Cell cell = null; // å…¼å®¹
         for (int rowNum = sheet.getFirstRowNum(); rowNum <= lastRowNum; rowNum++) {
             row = sheet.getRow(rowNum);
             if (row == null) {
@@ -132,7 +132,7 @@ public class ExcelToHtml {
             int lastColNum = row.getLastCellNum();
             for (int colNum = 0; colNum < lastColNum; colNum++) {
                 cell = row.getCell(colNum);
-                if (cell == null) { // ÌØÊâÇé¿ö ¿Õ°×µÄµ¥Ôª¸ñ»á·µ»Ønull
+                if (cell == null) { // ç‰¹æ®Šæƒ…å†µ ç©ºç™½çš„å•å…ƒæ ¼ä¼šè¿”å›null
                     sb.append("<td>&nbsp;</td>");
                     continue;
                 }
@@ -151,15 +151,15 @@ public class ExcelToHtml {
                 } else {
                     sb.append("<td ");
                 }
-                // ÅĞ¶ÏÊÇ·ñĞèÒªÑùÊ½
+                // åˆ¤æ–­æ˜¯å¦éœ€è¦æ ·å¼
                 if (isWithStyle) {
-                    dealExcelStyle(wb, sheet, cell, sb);// ´¦Àíµ¥Ôª¸ñÑùÊ½
+                    dealExcelStyle(wb, sheet, cell, sb);// å¤„ç†å•å…ƒæ ¼æ ·å¼
                 }
                 sb.append(">");
                 if (stringValue == null || "".equals(stringValue.trim())) {
                     sb.append(" &nbsp; ");
                 } else {
-                    // ½«asciiÂëÎª160µÄ¿Õ¸ñ×ª»»ÎªhtmlÏÂµÄ¿Õ¸ñ£¨&nbsp;£©
+                    // å°†asciiç ä¸º160çš„ç©ºæ ¼è½¬æ¢ä¸ºhtmlä¸‹çš„ç©ºæ ¼ï¼ˆ&nbsp;ï¼‰
                     sb.append(stringValue.replace(String.valueOf((char) 160), "&nbsp;"));
                 }
                 sb.append("</td>");
@@ -201,7 +201,7 @@ public class ExcelToHtml {
     }
 
     /**
-     * »ñÈ¡±í¸ñµ¥Ôª¸ñCellÄÚÈİ
+     * è·å–è¡¨æ ¼å•å…ƒæ ¼Cellå†…å®¹
      * 
      * @param cell
      * @return
@@ -209,18 +209,18 @@ public class ExcelToHtml {
     private static String getCellValue(Cell cell) {
         String result = new String();
         switch (cell.getCellType()) {
-        case Cell.CELL_TYPE_NUMERIC:// Êı×ÖÀàĞÍ
-            if (HSSFDateUtil.isCellDateFormatted(cell)) {// ´¦ÀíÈÕÆÚ¸ñÊ½¡¢Ê±¼ä¸ñÊ½
+        case Cell.CELL_TYPE_NUMERIC:// æ•°å­—ç±»å‹
+            if (HSSFDateUtil.isCellDateFormatted(cell)) {// å¤„ç†æ—¥æœŸæ ¼å¼ã€æ—¶é—´æ ¼å¼
                 SimpleDateFormat sdf = null;
                 if (cell.getCellStyle().getDataFormat() == HSSFDataFormat.getBuiltinFormat("h:mm")) {
                     sdf = new SimpleDateFormat("HH:mm");
-                } else {// ÈÕÆÚ
+                } else {// æ—¥æœŸ
                     sdf = new SimpleDateFormat("yyyy-MM-dd");
                 }
                 Date date = cell.getDateCellValue();
                 result = sdf.format(date);
             } else if (cell.getCellStyle().getDataFormat() == 58) {
-                // ´¦Àí×Ô¶¨ÒåÈÕÆÚ¸ñÊ½£ºmÔÂdÈÕ(Í¨¹ıÅĞ¶Ïµ¥Ôª¸ñµÄ¸ñÊ½id½â¾ö£¬idµÄÖµÊÇ58)
+                // å¤„ç†è‡ªå®šä¹‰æ—¥æœŸæ ¼å¼ï¼šmæœˆdæ—¥(é€šè¿‡åˆ¤æ–­å•å…ƒæ ¼çš„æ ¼å¼idè§£å†³ï¼Œidçš„å€¼æ˜¯58)
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 double value = cell.getNumericCellValue();
                 Date date = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value);
@@ -230,14 +230,14 @@ public class ExcelToHtml {
                 CellStyle style = cell.getCellStyle();
                 DecimalFormat format = new DecimalFormat();
                 String temp = style.getDataFormatString();
-                // µ¥Ôª¸ñÉèÖÃ³É³£¹æ
+                // å•å…ƒæ ¼è®¾ç½®æˆå¸¸è§„
                 if (temp.equals("General")) {
                     format.applyPattern("#");
                 }
                 result = format.format(value);
             }
             break;
-        case Cell.CELL_TYPE_STRING:// StringÀàĞÍ
+        case Cell.CELL_TYPE_STRING:// Stringç±»å‹
             result = cell.getRichStringCellValue().toString();
             break;
         case Cell.CELL_TYPE_BLANK:
@@ -251,7 +251,7 @@ public class ExcelToHtml {
     }
 
     /**
-     * ´¦Àí±í¸ñÑùÊ½
+     * å¤„ç†è¡¨æ ¼æ ·å¼
      * 
      * @param wb
      * @param sheet
@@ -263,20 +263,20 @@ public class ExcelToHtml {
         CellStyle cellStyle = cell.getCellStyle();
         if (cellStyle != null) {
             short alignment = cellStyle.getAlignment();
-            sb.append("align='" + convertAlignToHtml(alignment) + "' ");// µ¥Ôª¸ñÄÚÈİµÄË®Æ½¶ÔÆë·½Ê½
+            sb.append("align='" + convertAlignToHtml(alignment) + "' ");// å•å…ƒæ ¼å†…å®¹çš„æ°´å¹³å¯¹é½æ–¹å¼
             short verticalAlignment = cellStyle.getVerticalAlignment();
-            sb.append("valign='" + convertVerticalAlignToHtml(verticalAlignment) + "' ");// µ¥Ôª¸ñÖĞÄÚÈİµÄ´¹Ö±ÅÅÁĞ·½Ê½
+            sb.append("valign='" + convertVerticalAlignToHtml(verticalAlignment) + "' ");// å•å…ƒæ ¼ä¸­å†…å®¹çš„å‚ç›´æ’åˆ—æ–¹å¼
             if (wb instanceof XSSFWorkbook) {
                 XSSFFont xf = ((XSSFCellStyle) cellStyle).getFont();
                 short boldWeight = xf.getBoldweight();
                 sb.append("style='");
-                sb.append("font-weight:" + boldWeight + ";"); // ×ÖÌå¼Ó´Ö
-                sb.append("font-size: " + xf.getFontHeight() / 2 + "%;"); // ×ÖÌå´óĞ¡
+                sb.append("font-weight:" + boldWeight + ";"); // å­—ä½“åŠ ç²—
+                sb.append("font-size: " + xf.getFontHeight() / 2 + "%;"); // å­—ä½“å¤§å°
                 int columnWidth = sheet.getColumnWidth(cell.getColumnIndex());
                 sb.append("width:" + columnWidth + "px;");
                 XSSFColor xc = xf.getXSSFColor();
                 if (xc != null && !"".equals(xc)) {
-                    //sb.append("color:#" + xc.getARGBHex().substring(2) + ";"); // ×ÖÌåÑÕÉ«
+                    //sb.append("color:#" + xc.getARGBHex().substring(2) + ";"); // å­—ä½“é¢œè‰²
                 }
 
                 XSSFColor bgColor = (XSSFColor) cellStyle.getFillForegroundColorColor();
@@ -292,7 +292,7 @@ public class ExcelToHtml {
                 // String bgColorStr = bgColor.getARGBHex();
                 // System.out.println("bgColorStr: "+bgColorStr);
                 if (bgColor != null && !"".equals(bgColor)) {
-                    sb.append("background-color:#" + bgColor.getARGBHex().substring(2) + ";"); // ±³¾°ÑÕÉ«
+                    sb.append("background-color:#" + bgColor.getARGBHex().substring(2) + ";"); // èƒŒæ™¯é¢œè‰²
                 }
                 sb.append(getBorderStyle(0, cellStyle.getBorderTop(),
                         ((XSSFCellStyle) cellStyle).getTopBorderXSSFColor()));
@@ -309,13 +309,13 @@ public class ExcelToHtml {
                 short boldWeight = hf.getBoldweight();
                 short fontColor = hf.getColor();
                 sb.append("style='");
-                HSSFPalette palette = ((HSSFWorkbook) wb).getCustomPalette(); // ÀàHSSFPaletteÓÃÓÚÇóµÄÑÕÉ«µÄ¹ú¼Ê±ê×¼ĞÎÊ½
+                HSSFPalette palette = ((HSSFWorkbook) wb).getCustomPalette(); // ç±»HSSFPaletteç”¨äºæ±‚çš„é¢œè‰²çš„å›½é™…æ ‡å‡†å½¢å¼
                 HSSFColor hc = palette.getColor(fontColor);
-                sb.append("font-weight:" + boldWeight + ";"); // ×ÖÌå¼Ó´Ö
-                sb.append("font-size: " + hf.getFontHeight() / 2 + "%;"); // ×ÖÌå´óĞ¡
+                sb.append("font-weight:" + boldWeight + ";"); // å­—ä½“åŠ ç²—
+                sb.append("font-size: " + hf.getFontHeight() / 2 + "%;"); // å­—ä½“å¤§å°
                 String fontColorStr = convertToStardColor(hc);
                 if (fontColorStr != null && !"".equals(fontColorStr.trim())) {
-                    sb.append("color:" + fontColorStr + ";"); // ×ÖÌåÑÕÉ«
+                    sb.append("color:" + fontColorStr + ";"); // å­—ä½“é¢œè‰²
                 }
                 int columnWidth = sheet.getColumnWidth(cell.getColumnIndex());
                 sb.append("width:" + columnWidth + "px;");
@@ -323,7 +323,7 @@ public class ExcelToHtml {
                 hc = palette.getColor(bgColor);
                 String bgColorStr = convertToStardColor(hc);
                 if (bgColorStr != null && !"".equals(bgColorStr.trim())) {
-                    sb.append("background-color:" + bgColorStr + ";"); // ±³¾°ÑÕÉ«
+                    sb.append("background-color:" + bgColorStr + ";"); // èƒŒæ™¯é¢œè‰²
                 }
                 sb.append(getBorderStyle(palette, 0, cellStyle.getBorderTop(), cellStyle.getTopBorderColor()));
                 sb.append(getBorderStyle(palette, 1, cellStyle.getBorderRight(), cellStyle.getRightBorderColor()));
@@ -336,7 +336,7 @@ public class ExcelToHtml {
     }
 
     /**
-     * µ¥Ôª¸ñÄÚÈİµÄË®Æ½¶ÔÆë·½Ê½
+     * å•å…ƒæ ¼å†…å®¹çš„æ°´å¹³å¯¹é½æ–¹å¼
      * 
      * @param alignment
      * @return
@@ -361,7 +361,7 @@ public class ExcelToHtml {
     }
 
     /**
-     * µ¥Ôª¸ñÖĞÄÚÈİµÄ´¹Ö±ÅÅÁĞ·½Ê½
+     * å•å…ƒæ ¼ä¸­å†…å®¹çš„å‚ç›´æ’åˆ—æ–¹å¼
      * 
      * @param verticalAlignment
      * @return

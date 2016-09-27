@@ -26,13 +26,13 @@ public class AnalysisDao
 
 	public List <AnalysisEntity> getAllAnalysis_rectiNew(AnalysisEntity entity){
 		logger.info("["+this.getClass().getName()+"][getAllAnalysis_rectiNew][start]");
-		//°´µ¥Î»£¨²¿ÃÅ£©Í³¼Æ
+		//æŒ‰å•ä½ï¼ˆéƒ¨é—¨ï¼‰ç»Ÿè®¡
 		String sql = " select danwei,count(1) as danwei_cnt from rectinew where deleteflg ='notdeleted' group by danwei";
-		if ("°´µØµãÍ³¼Æ".equals(entity.getAnalysistype())) {
+		if ("æŒ‰åœ°ç‚¹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " select location,count(1) as location_cnt_sum from rectinew where deleteflg ='notdeleted' group by location";
-		} else if ("°´Òş»¼ÀàĞÍÍ³¼Æ".equals(entity.getAnalysistype())) {
+		} else if ("æŒ‰éšæ‚£ç±»å‹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " select rectitype,count(1) as rectitype_cnt from rectinew where deleteflg ='notdeleted' group by rectitype";
-		} else if ("°´Òş»¼µÈ¼¶Í³¼Æ".equals(entity.getAnalysistype())) {
+		} else if ("æŒ‰éšæ‚£ç­‰çº§ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " select rectilevel,count(1) as rectilevel_cnt from rectinew where deleteflg ='notdeleted' group by rectilevel";
 		}
 		
@@ -43,9 +43,9 @@ public class AnalysisDao
 	}
 	public List <AnalysisEntity> getAllAnalysis_rectiCheck(AnalysisEntity entity){
 		logger.info("["+this.getClass().getName()+"][getAllAnalysis_rectiCheck][start]");
-		//°´µ¥Î»£¨²¿ÃÅ£©Í³¼Æ
+		//æŒ‰å•ä½ï¼ˆéƒ¨é—¨ï¼‰ç»Ÿè®¡
 		String sql = " select danwei,count(1) as danwei_cnt from recticheck where deleteflg ='notdeleted' group by danwei";
-		if ("°´µØµãÍ³¼Æ".equals(entity.getAnalysistype())) {
+		if ("æŒ‰åœ°ç‚¹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " ";
 			sql = sql + " SELECT T1.location,";
 			sql = sql + " sum(T1.location_cnt) as location_cnt_sum";
@@ -88,9 +88,9 @@ public class AnalysisDao
 
 			
 			
-		} else if ("°´Òş»¼ÀàĞÍÍ³¼Æ".equals(entity.getAnalysistype())) {
+		} else if ("æŒ‰éšæ‚£ç±»å‹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " select rectitype,count(1) as rectitype_cnt from recticheck where deleteflg ='notdeleted' group by rectitype";
-		} else if ("°´Òş»¼µÈ¼¶Í³¼Æ".equals(entity.getAnalysistype())) {
+		} else if ("æŒ‰éšæ‚£ç­‰çº§ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 			sql = " select rectilevel,count(1) as rectilevel_cnt from recticheck where deleteflg ='notdeleted' group by rectilevel";
 		}
 		logger.info("["+this.getClass().getName()+"][getAllAnalysis_rectiCheck][SQL]"+sql);

@@ -216,8 +216,8 @@ public class RectiNewDao
 					+ strAc
 					+ " and recti.deleteflg = 'notdeleted'";
 					
-					if (s_searchForAllFlg.contains("所有人隐患信息")) {
-						//可以查看所有用户录入的数据
+					if (s_searchForAllFlg.contains("鎵�鏈変汉闅愭偅淇℃伅")) {
+						//鍙互鏌ョ湅鎵�鏈夌敤鎴峰綍鍏ョ殑鏁版嵁
 					} else {
 						sql = sql 
 						+ "  and (recti.starter='"+userId+"' "

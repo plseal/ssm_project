@@ -22,7 +22,7 @@ public class uploadFileController
 {
 	private static Logger logger = Logger.getLogger(uploadFileController.class);
 	@Resource(name="rectiNewService")
-	private RectiNewService rectiNewService;//业务逻辑
+	private RectiNewService rectiNewService;//涓氬姟閫昏緫
 	
 	public uploadFileController()
 	{
@@ -61,7 +61,7 @@ public class uploadFileController
 		}
 		RectiNewEntity entity = new RectiNewEntity();
 		
-		//表单内容设置到entity
+		//琛ㄥ崟鍐呭璁剧疆鍒癳ntity
 		entity = rectiNewService.setEntityFromRequest(request, entity);
 		
 		logger.info("["+this.getClass().getName()+"][deleteUploadFile][javaid]:"+entity.getJavaid());
@@ -96,7 +96,7 @@ public class uploadFileController
 		
 		RectiNewEntity entity = new RectiNewEntity();
 		
-		//表单内容设置到entity
+		//琛ㄥ崟鍐呭璁剧疆鍒癳ntity
 		entity = rectiNewService.setEntityFromRequest(request, entity);
 		
 		logger.info("["+this.getClass().getName()+"][addFileList][javaid]:"+entity.getJavaid());

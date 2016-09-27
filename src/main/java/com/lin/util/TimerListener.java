@@ -18,6 +18,6 @@ public class TimerListener
 	public void notify(EventListenerExecution arg0)
 		throws Exception
 	{
-		System.out.println("时间到了，-------------------------------------------");
+		System.out.println("脢卤录盲碌陆脕脣拢卢-------------------------------------------");
 	}
 }

@@ -25,7 +25,7 @@ public class LocationDao
 
 	public List<LocationEntity> getAll(){
 		logger.info("["+this.getClass().getName()+"][getAll][start]");
-		String sql =  "SELECT id,name,orderid  FROM t_location where used = '地点' order by orderid";
+		String sql =  "SELECT id,name,orderid  FROM t_location where used = '鍦扮偣' order by orderid";
 		logger.info("["+this.getClass().getName()+"][getAll][SQL]"+sql);
 		List<LocationEntity>  list = namedParameterJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(UserEntity.class));
 		logger.info("["+this.getClass().getName()+"][getAll][end]");
@@ -33,7 +33,7 @@ public class LocationDao
 	}
 	public List<LocationEntity> getYinhuanType(){
 		logger.info("["+this.getClass().getName()+"][getYinhuanType][start]");
-		String sql =  "SELECT id,name,orderid  FROM t_location where used = '隐患类型' order by orderid";
+		String sql =  "SELECT id,name,orderid  FROM t_location where used = '闅愭偅绫诲瀷' order by orderid";
 		logger.info("["+this.getClass().getName()+"][getYinhuanType][SQL]"+sql);
 		List<LocationEntity>  list = namedParameterJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(UserEntity.class));
 		logger.info("["+this.getClass().getName()+"][getYinhuanType][end]");
@@ -41,7 +41,7 @@ public class LocationDao
 	}
 	public List<LocationEntity> getBeCheckedBu(){
 		logger.info("["+this.getClass().getName()+"][getBeCheckedBu][start]");
-		String sql =  "SELECT id,name,orderid  FROM t_location where used = '受检部门' order by orderid";
+		String sql =  "SELECT id,name,orderid  FROM t_location where used = '鍙楁閮ㄩ棬' order by orderid";
 		logger.info("["+this.getClass().getName()+"][getBeCheckedBu][SQL]"+sql);
 		List<LocationEntity>  list = namedParameterJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(UserEntity.class));
 		logger.info("["+this.getClass().getName()+"][getBeCheckedBu][end]");

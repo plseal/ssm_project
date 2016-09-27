@@ -43,34 +43,34 @@ import com.lin.util.common;
 public class RectiNewController{ 
 	private static Logger logger = Logger.getLogger(RectiNewController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="rectiNewService")
-	private RectiNewService rectiNewService;//ÒµÎñÂß¼­
+	private RectiNewService rectiNewService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="rectiSearchService")
-	private RectiSearchService rectiSearchService;//ÒµÎñÂß¼­
+	private RectiSearchService rectiSearchService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="danweiService")
-	private DanweiService danweiService;//ÒµÎñÂß¼­
+	private DanweiService danweiService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="locationService")
-	private LocationService locationService;//ÒµÎñÂß¼­
+	private LocationService locationService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="myJbpmService")
-	private MyJbpmService myJbmpService;//ÒµÎñÂß¼­
+	private MyJbpmService myJbmpService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 
 	public RectiNewController()
 	{
@@ -96,7 +96,7 @@ public class RectiNewController{
 		
 		request.getSession().setAttribute("javaid", javaid);
 		
-		String taskname = "¿ªÊ¼½Úµã";
+		String taskname = "å¼€å§‹èŠ‚ç‚¹";
 		RectiNewEntity entity = new RectiNewEntity();
 		entity.setStarter(id);
 		entity.setJavaid(javaid);
@@ -123,22 +123,22 @@ public class RectiNewController{
 		request.setAttribute("managerokdate", "");
 		
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
 		
@@ -158,31 +158,31 @@ public class RectiNewController{
 		
 		RectiNewEntity entity = new RectiNewEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiNewService.setEntityFromRequest(request, entity);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("javaid", entity.getJavaid());
 		map.put("starter", entity.getStarter());
 		
-		//·¢ÆğÁ÷³Ì
+		//å‘èµ·æµç¨‹
 		ProcessInstance ins = executionService.startProcessInstanceByKey("rectification", map);
 		logger.info("["+this.getClass().getName()+"][start_][process start]");
 		logger.info("["+this.getClass().getName()+"][start_][process id]:"+ins.getId());
 		
 		
-		//Çåµ¥µÄÁ÷³ÌĞÅÏ¢³Ö¾Ã»¯
+		//æ¸…å•çš„æµç¨‹ä¿¡æ¯æŒä¹…åŒ–
 		entity.setProcessid(ins.getId());
-		entity.setTaskname("²¿ÃÅ¸ºÔğÈË:"+entity.getBumenfuzeren()+"ÉóÅú");
-		//javaid´æÔÚ
+		entity.setTaskname("éƒ¨é—¨è´Ÿè´£äºº:"+entity.getBumenfuzeren()+"å®¡æ‰¹");
+		//javaidå­˜åœ¨
 		if (rectiNewService.checkIdExist(entity)>0) {
 			rectiNewService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiNewService.insert(entity);
 		} 
 		
-		//Íê³ÉµÚÒ»¸ö½Úµã
+		//å®Œæˆç¬¬ä¸€ä¸ªèŠ‚ç‚¹
 		Map<String, String> map2 = new HashMap<String, String>();
 		
 		map2.put("leader", entity.getBumenfuzeren());
@@ -191,13 +191,13 @@ public class RectiNewController{
 		logger.info("["+this.getClass().getName()+"][start_][task id]:"+taskId);
 		taskService.setVariables(taskId, map2);
 		
-		taskService.completeTask(taskId, "·¢ÆğÉêÇë");
+		taskService.completeTask(taskId, "å‘èµ·ç”³è¯·");
 		
 		
 		request.setAttribute("prepagejsp", "rectiNew.jsp");
 		request.setAttribute("listRectiAc", "this_month");
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -215,38 +215,38 @@ public class RectiNewController{
 		
 		RectiNewEntity entity = new RectiNewEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiNewService.setEntityFromRequest(request, entity);
 		
 		
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiNewService.checkIdExist(entity)>0) {
 			rectiNewService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiNewService.insert(entity);
 		}
 		
-		//Êı¾İ¿âµÄÉóÅúµÈÄÚÈİÈ¡µÃ
+		//æ•°æ®åº“çš„å®¡æ‰¹ç­‰å†…å®¹å–å¾—
 		RectiNewEntity entitySaved = rectiNewService.getById(entity.getJavaid());
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
 		
@@ -254,7 +254,7 @@ public class RectiNewController{
 		
 		if (pageid.equals("rectiNew.jsp")) {
 			request.setAttribute("prepagejsp", "rectiNewEntrance.jsp");
-			request.setAttribute("messeageForSave", "±£´æ³É¹¦£¡µã»÷°´Å¥²é¿´¡£");
+			request.setAttribute("messeageForSave", "ä¿å­˜æˆåŠŸï¼ç‚¹å‡»æŒ‰é’®æŸ¥çœ‹ã€‚");
 			
 			
 			request = rectiNewService.setRequestFromEntity(request, entitySaved);
@@ -263,7 +263,7 @@ public class RectiNewController{
 			return "rectiNew";
 		} else {
 			request.setAttribute("prepagejsp", "rectiNewEntrance.jsp");
-			request.setAttribute("taskName", "Òş»¼·¢ÆğÈË");
+			request.setAttribute("taskName", "éšæ‚£å‘èµ·äºº");
 			logger.info("["+this.getClass().getName()+"][save_][end]---goto[detail.jsp]");
 			return "detail";
 		}
@@ -272,7 +272,7 @@ public class RectiNewController{
 
 
 
-	//É¾³ı£¨Òş»¼ĞÅÏ¢¹ÜÀíÒ³ÃæÓÃ£©
+	//åˆ é™¤ï¼ˆéšæ‚£ä¿¡æ¯ç®¡ç†é¡µé¢ç”¨ï¼‰
 	@RequestMapping("deleteListRectiNew")
 	public String  deleteListRectiNew(String listRectiAc,HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][deleteListRectiNew][start]");
@@ -287,18 +287,18 @@ public class RectiNewController{
 		//executionService.deleteProcessInstanceCascade(executionId);
 		//taskService.deleteTask(taskId);
 		RectiNewEntity entity = rectiNewService.getById(javaid);
-		//É¾³ırectiNewµÄÊı¾İ
+		//åˆ é™¤rectiNewçš„æ•°æ®
 		rectiNewService.delete(entity,request);
-		//É¾³ıÒÑ¾­·¢ÆğµÄÁ÷³Ì
-		//ÏÂÁĞÇé¿ö²»ĞèÒªÉ¾³ıÁ÷³Ì
-		//processidÎª¿ÕµÄ
+		//åˆ é™¤å·²ç»å‘èµ·çš„æµç¨‹
+		//ä¸‹åˆ—æƒ…å†µä¸éœ€è¦åˆ é™¤æµç¨‹
+		//processidä¸ºç©ºçš„
 		if ( common.isEmpty(processid)) {
-			//²»É¾³ı
+			//ä¸åˆ é™¤
 		} else {
 			executionService.deleteProcessInstanceCascade(processid);
 		}
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -329,7 +329,7 @@ public class RectiNewController{
 		
 		request = rectiSearchService.setRequestFromEntity(request, entity);
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -356,9 +356,9 @@ public class RectiNewController{
 		String s_searchForAllFlg  = (String)request.getSession().getAttribute("s_searchForAllFlg");
 		
 		
-		//ÉèÖÃµ±Ç°Ò³
+		//è®¾ç½®å½“å‰é¡µ
         int intPage = (page==null||page<=0)?1:page;
-        //ÉèÖÃÃ¿Ò³ÏÔÊ¾µÄÊıÁ¿
+        //è®¾ç½®æ¯é¡µæ˜¾ç¤ºçš„æ•°é‡
         int intPageSize = rows==null||rows<=0?10:rows;;
 		
 		
@@ -396,7 +396,7 @@ public class RectiNewController{
 		
 		return result;
 	}
-	//Íê³ÉÈÎÎñ
+	//å®Œæˆä»»åŠ¡
 	@RequestMapping("complete")
 	public String complete(String taskid, HttpServletRequest request) throws UnsupportedEncodingException {
 		logger.info("["+this.getClass().getName()+"][complete][start]");
@@ -409,7 +409,7 @@ public class RectiNewController{
 		
 		RectiNewEntity entity = new RectiNewEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiNewService.setEntityFromRequest(request, entity);
 		entity.setTaskid(taskid);
 		
@@ -431,12 +431,12 @@ public class RectiNewController{
 		String cityofficer = userService.getCityofficerById(entity.getStarter()).getId();
 		String starterGeOfficer = userService.getGeofficerById(entity.getStarter()).getId();
 		String safetymanager = userService.getSafetymanagerById(entity.getStarter()).getId();
-		if (entity.getTaskname().contains("²¿ÃÅ¸ºÔğÈË") ){
-			if ( strTrans.equals("ÉóÅú") ){
+		if (entity.getTaskname().contains("éƒ¨é—¨è´Ÿè´£äºº") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				entity.setLeader(id);
 				entity.setLeadername(name);
 				entity.setLeaderokdate(df.format(date));
-				entity.setTaskname("·Ö¹ÜÁìµ¼:"+entity.getFenguanlingdao()+"ÉóÅú");
+				entity.setTaskname("åˆ†ç®¡é¢†å¯¼:"+entity.getFenguanlingdao()+"å®¡æ‰¹");
 			} else {
 				entity.setLeadername("");
 				entity.setLeaderokdate("");
@@ -446,12 +446,12 @@ public class RectiNewController{
 			map.put("manager", entity.getFenguanlingdao());
 			taskService.setVariables(taskid, map);
 			
-		} else if (entity.getTaskname().contains("·Ö¹ÜÁìµ¼") ){
-			if ( strTrans.equals("ÉóÅú") ){
+		} else if (entity.getTaskname().contains("åˆ†ç®¡é¢†å¯¼") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				entity.setManager(id);
 				entity.setManagername(name);
 				entity.setManagerokdate(df.format(date));
-				entity.setTaskname("°ì¹«ÊÒ:"+geofficer+"ÉóÅú");
+				entity.setTaskname("åŠå…¬å®¤:"+geofficer+"å®¡æ‰¹");
 			} else {
 				entity.setManager("");
 				entity.setManagername("");
@@ -462,57 +462,57 @@ public class RectiNewController{
 			map.put("geofficer", geofficer);
 			
 			taskService.setVariables(taskid, map);
-		} else if (entity.getTaskname().contains("°ì¹«ÊÒ") ){
+		} else if (entity.getTaskname().contains("åŠå…¬å®¤") ){
 			Map<String, String> map1 = new HashMap<String, String>();
 			map1.put("townofficer", townofficer);
 			map1.put("cityofficer", cityofficer);
 			taskService.setVariables(taskid, map1);
-			if ( strTrans.equals("ÉóÅú") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				if ("rectiLevelYes".equals(strResult)){
 					Map<String, Integer> map = new HashMap<String, Integer>();
 					map.put("rectiLevel", Integer.valueOf(1));
 
 					taskService.setVariables(taskid, map);
-					entity.setRectilevel("ÖØ´óÒş»¼");
-					entity.setTaskname("Ö÷Òª¸ºÔğÈË:"+townofficer+"ÉóÅú");
+					entity.setRectilevel("é‡å¤§éšæ‚£");
+					entity.setTaskname("ä¸»è¦è´Ÿè´£äºº:"+townofficer+"å®¡æ‰¹");
 				} else if ("rectiLevelNo".equals(strResult)){
 					Map<String, Integer> map = new HashMap<String, Integer>();
 					map.put("rectiLevel", Integer.valueOf(0));
 					taskService.setVariables(taskid, map);
-					entity.setRectilevel("·ÇÖØ´óÒş»¼");
-					entity.setTaskname("Òş»¼·¢ÆğÈËÑéÊÕ:"+entity.getStarter());
+					entity.setRectilevel("éé‡å¤§éšæ‚£");
+					entity.setTaskname("éšæ‚£å‘èµ·äººéªŒæ”¶:"+entity.getStarter());
 				}
 				entity.setGeofficer(id);
 				entity.setGeofficername(name);
 				entity.setGeofficerokdate(df.format(date));
-			} else if (strTrans.equals("ÔÙÉóÅú")) {
+			} else if (strTrans.equals("å†å®¡æ‰¹")) {
 				entity.setGeofficer(id);
 				entity.setGeofficername(name);
 				entity.setGeofficerokdate(df.format(date));
 
-				entity.setTaskname("°²È«¹ÜÀíÔ±ÑéÊÕ"+safetymanager);
+				entity.setTaskname("å®‰å…¨ç®¡ç†å‘˜éªŒæ”¶"+safetymanager);
 			} else {
 				entity.setGeofficer("");
 				entity.setGeofficername("");
 			}
 			
-		} else if (entity.getTaskname().contains("Ö÷Òª¸ºÔğÈË") ){
-			if ( strTrans.equals("ÉóÅú") ){
+		} else if (entity.getTaskname().contains("ä¸»è¦è´Ÿè´£äºº") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				entity.setTownofficer(id);
 				entity.setTownofficername(name);
 				entity.setTownofficerokdate(df.format(date));
-				entity.setTaskname("ÊĞ¾Ö:"+cityofficer+"ÉóÅú");
+				entity.setTaskname("å¸‚å±€:"+cityofficer+"å®¡æ‰¹");
 			} else {
 				entity.setTownofficer("");
 				entity.setTownofficername("");
 			}
 			
-		} else if (entity.getTaskname().contains("ÊĞ¾Ö") ) {
-			if  (strTrans.equals("ÉóÅú")) {
+		} else if (entity.getTaskname().contains("å¸‚å±€") ) {
+			if  (strTrans.equals("å®¡æ‰¹")) {
 				entity.setCityofficer(id);
 				entity.setCityofficername(name);
 				entity.setCityofficerokdate(df.format(date));
-				entity.setTaskname("°ì¹«ÊÒÔÙ´ÎÉóÅú:"+starterGeOfficer);
+				entity.setTaskname("åŠå…¬å®¤å†æ¬¡å®¡æ‰¹:"+starterGeOfficer);
 			} else {
 				entity.setCityofficer("");
 				entity.setCityofficername("");
@@ -521,22 +521,22 @@ public class RectiNewController{
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("geofficer", starterGeOfficer);
 			taskService.setVariables(taskid, map);
-		} else if (entity.getTaskname().contains("°²È«¹ÜÀíÔ±ÑéÊÕ") ) {
-			if  (strTrans.equals("ÑéÊÕ")) {
+		} else if (entity.getTaskname().contains("å®‰å…¨ç®¡ç†å‘˜éªŒæ”¶") ) {
+			if  (strTrans.equals("éªŒæ”¶")) {
 				entity.setSafetymanager(id);
 				entity.setSafetymanagername(name);
 				entity.setSafetymanagerokdate(df.format(date));
 				entity.setProcessid("");
 				
-				entity.setTaskname("°²È«¹ÜÀíÔ±ÑéÊÕ½áÊøÁ÷³Ì¡£"+safetymanager);
+				entity.setTaskname("å®‰å…¨ç®¡ç†å‘˜éªŒæ”¶ç»“æŸæµç¨‹ã€‚"+safetymanager);
 			} else {
 				entity.setSafetymanager("");
 				entity.setSafetymanagername("");
 			}
-		} else if (entity.getTaskname().contains("Òş»¼·¢ÆğÈËÑéÊÕ") ) {
-			if  (strTrans.equals("ÑéÊÕ")) {
+		} else if (entity.getTaskname().contains("éšæ‚£å‘èµ·äººéªŒæ”¶") ) {
+			if  (strTrans.equals("éªŒæ”¶")) {
 				entity.setProcessid("");				
-				entity.setTaskname("Òş»¼·¢ÆğÈËÑéÊÕ½áÊøÁ÷³Ì¡£"+entity.getStarter());
+				entity.setTaskname("éšæ‚£å‘èµ·äººéªŒæ”¶ç»“æŸæµç¨‹ã€‚"+entity.getStarter());
 				
 				entity.setStarterokdate(df.format(date));
 			} else {
@@ -544,10 +544,10 @@ public class RectiNewController{
 				
 			}
 		}
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiNewService.checkIdExist(entity)>0) {
 			rectiNewService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiNewService.insert(entity);
 		}
@@ -561,7 +561,7 @@ public class RectiNewController{
 		request.setAttribute("entity", entity);
 		request.setAttribute("listRectiAc", "this_month");
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -587,30 +587,30 @@ public class RectiNewController{
 		
 		RectiNewEntity entity = rectiNewService.getById(javaid);
 		entity.setTaskid(taskid);
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiNewService.checkIdExist(entity)>0) {
 			rectiNewService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiNewService.insert(entity);
 		}
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//²¿ÃÅ¸ºÔğÈËlistÈ¡µÃ
+		//éƒ¨é—¨è´Ÿè´£äººlistå–å¾—
 		List<UserEntity>  leaderList =userService.getUserListByLeader(user_danwei);
 		request.setAttribute("leaderList",leaderList);
-		//·Ö¹ÜÁìµ¼listÈ¡µÃ
+		//åˆ†ç®¡é¢†å¯¼listå–å¾—
 		List<UserEntity>  managerList =userService.getUserListByManager(user_danwei);
 		request.setAttribute("managerList",managerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
 		
@@ -644,41 +644,41 @@ public class RectiNewController{
 		logger.info("["+this.getClass().getName()+"][printword][location:]"+entity.getLocation());
 		
 	    Map<String, Object> param = new HashMap<String, Object>();
-	    param.put("¤¡", entity.getNo());    
-	    param.put("¤£", entity.getName()); 
-	    param.put("¤¥", entity.getLocation());
-	    param.put("¤§", entity.getCheckdate()); 
-	    param.put("¤©", entity.getContent());
-	    //param.put("¤«", entity.getOkstandard());
-	    param.put("¤­", entity.getOkmeasure());
-	    param.put("¤±", entity.getLeadername());
-	    param.put("¤³", entity.getLeaderokdate()); 
-	    param.put("¤¯", entity.getLeaderokmessage()); 
-	    param.put("¤·", entity.getManagername()); 
-	    param.put("¤¹", entity.getManagerokdate());
-	    param.put("¤µ", entity.getManagerokmessage()); 
-	    param.put("¤½", entity.getGeofficername());
-	    param.put("¤¿", entity.getGeofficerokdate());
-	    param.put("¤»", entity.getGeofficerokmessage());
-	    param.put("¤Ä", entity.getTownofficername());
-	    param.put("¤Æ", entity.getTownofficerokdate());
-	    param.put("¤Á", entity.getTownofficerokmessage());
-	    param.put("¤Ê", entity.getCityofficername());
-	    param.put("¤Ë", entity.getCityofficerokdate());
-	    param.put("¤È", entity.getCityofficerokmessage()); 
-	    //°²È«¹ÜÀíÔ±ÑéÊÕĞÅÏ¢
+	    param.put("ã", entity.getNo());    
+	    param.put("ãƒ", entity.getName()); 
+	    param.put("ã…", entity.getLocation());
+	    param.put("ã‡", entity.getCheckdate()); 
+	    param.put("ã‰", entity.getContent());
+	    //param.put("ã‹", entity.getOkstandard());
+	    param.put("ã", entity.getOkmeasure());
+	    param.put("ã‘", entity.getLeadername());
+	    param.put("ã“", entity.getLeaderokdate()); 
+	    param.put("ã", entity.getLeaderokmessage()); 
+	    param.put("ã—", entity.getManagername()); 
+	    param.put("ã™", entity.getManagerokdate());
+	    param.put("ã•", entity.getManagerokmessage()); 
+	    param.put("ã", entity.getGeofficername());
+	    param.put("ãŸ", entity.getGeofficerokdate());
+	    param.put("ã›", entity.getGeofficerokmessage());
+	    param.put("ã¤", entity.getTownofficername());
+	    param.put("ã¦", entity.getTownofficerokdate());
+	    param.put("ã¡", entity.getTownofficerokmessage());
+	    param.put("ãª", entity.getCityofficername());
+	    param.put("ã«", entity.getCityofficerokdate());
+	    param.put("ã¨", entity.getCityofficerokmessage()); 
+	    //å®‰å…¨ç®¡ç†å‘˜éªŒæ”¶ä¿¡æ¯
 	    if (!"".equals(entity.getSafetymanagerokdate())) {
-		    param.put("¤Í", entity.getSafetymanagername());
-		    param.put("¤Î", entity.getSafetymanagerokdate());  
-		    param.put("¤Ì", entity.getSafetymanagerokmessage());
-		//Òş»¼·¢ÆğÈËÑéÊÕĞÅÏ¢
+		    param.put("ã­", entity.getSafetymanagername());
+		    param.put("ã®", entity.getSafetymanagerokdate());  
+		    param.put("ã¬", entity.getSafetymanagerokmessage());
+		//éšæ‚£å‘èµ·äººéªŒæ”¶ä¿¡æ¯
 	    } else {
-		    param.put("¤Í", entity.getStarter());
-		    param.put("¤Î", entity.getStarterokdate());  
-		    param.put("¤Ì", entity.getStarterokmessage());
+		    param.put("ã­", entity.getStarter());
+		    param.put("ã®", entity.getStarterokdate());  
+		    param.put("ã¬", entity.getStarterokmessage());
 	    	
 	    }
-	    param.put("¤Ï", entity.getDanwei());
+	    param.put("ã¯", entity.getDanwei());
 
 
 	    	    
@@ -702,7 +702,7 @@ public class RectiNewController{
 		
 		
 	    request.setAttribute("strRealHTTPPath", strRealHTTPPath);
-	    request.setAttribute("strFileNameForView", "°²È«Òş»¼Õû¸ÄÂäÊµÇåµ¥");
+	    request.setAttribute("strFileNameForView", "å®‰å…¨éšæ‚£æ•´æ”¹è½å®æ¸…å•");
 	    
 	    logger.info("["+this.getClass().getName()+"][printword][end]");
 	    logger.info("["+this.getClass().getName()+"][printword][goto][printword.jsp]");

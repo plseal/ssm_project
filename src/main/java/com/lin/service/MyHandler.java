@@ -3,7 +3,7 @@ package com.lin.service;
 import org.jbpm.api.jpdl.DecisionHandler;
 import org.jbpm.api.model.OpenExecution;
 /**
- * Decision½Úµã´¦ÀíÀà
+ * DecisionèŠ‚ç‚¹å¤„ç†ç±»
  * @author Administrator
  *
  */

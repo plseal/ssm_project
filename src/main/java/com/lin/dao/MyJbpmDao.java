@@ -55,7 +55,7 @@ public class MyJbpmDao
 	
 	
 	public List<Map<String, Object>> getPersonalMsg(String strASSIGNEE){
-		//ÂÖÑ¯²»³ölog
+		//Ã‚Ã–Ã‘Â¯Â²Â»Â³Ã¶log
 		String sql =  getPersonalTaskSql(strASSIGNEE);
 		
 		List<Map<String, Object>> listTask = namedParameterJdbcTemplate.getJdbcOperations().queryForList(sql);

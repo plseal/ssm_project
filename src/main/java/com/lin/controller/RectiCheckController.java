@@ -44,33 +44,33 @@ public class RectiCheckController
 {
 	private static Logger logger = Logger.getLogger(RectiCheckController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="rectiCheckService")
-	private RectiCheckService rectiCheckService;//ÒµÎñÂß¼­
+	private RectiCheckService rectiCheckService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="danweiService")
-	private DanweiService danweiService;//ÒµÎñÂß¼­
+	private DanweiService danweiService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="locationService")
-	private LocationService locationService;//ÒµÎñÂß¼­
+	private LocationService locationService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="rectiSearchService")
-	private RectiSearchService rectiSearchService;//ÒµÎñÂß¼­
+	private RectiSearchService rectiSearchService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="myJbpmService")
-	private MyJbpmService myJbmpService;//ÒµÎñÂß¼­
+	private MyJbpmService myJbmpService;//ä¸šåŠ¡é€»è¾‘
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 
 	public RectiCheckController()
 	{
@@ -96,7 +96,7 @@ public class RectiCheckController
 		
 		request.getSession().setAttribute("javaid", javaid);
 		
-		String taskname = "¿ªÊ¼½Úµã";
+		String taskname = "å¼€å§‹èŠ‚ç‚¹";
 		RectiCheckEntity entity = new RectiCheckEntity();
 		entity.setStarter(id);
 		entity.setJavaid(javaid);
@@ -126,19 +126,19 @@ public class RectiCheckController
 		
 		request.setAttribute("entity",entity);
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//¾ÖÁìµ¼listÈ¡µÃ
+		//å±€é¢†å¯¼listå–å¾—
 		List<UserEntity>  townofficerList =userService.getUserListByTownOfficer(user_danwei);
 		request.setAttribute("townofficerList",townofficerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -155,32 +155,32 @@ public class RectiCheckController
 		logger.info("["+this.getClass().getName()+"][toRectiCheck][start]");
 
 		RectiCheckEntity entity = new RectiCheckEntity();
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiCheckService.setEntityFromRequest(request, entity);
 		
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//¾ÖÁìµ¼listÈ¡µÃ
+		//å±€é¢†å¯¼listå–å¾—
 		List<UserEntity>  townofficerList =userService.getUserListByTownOfficer(user_danwei);
 		request.setAttribute("townofficerList",townofficerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
-		logger.info("["+this.getClass().getName()+"][toRectiCheck][µ¥Î»¼ò³Æ]"+entity.getDanwei());
+		logger.info("["+this.getClass().getName()+"][toRectiCheck][å•ä½ç®€ç§°]"+entity.getDanwei());
 		
 		
 		
-		String danweilongname = "ÊĞ¾Ö¹«Ë¾";
-		String danweishortname ="ÊĞ¾Ö";
+		String danweilongname = "å¸‚å±€å…¬å¸";
+		String danweishortname ="å¸‚å±€";
 		
 		for (int i=0;i<danweiList.size();i++) {
 			danweishortname = danweiList.get(i).getId();
@@ -188,10 +188,10 @@ public class RectiCheckController
 				danweilongname =danweiList.get(i).getName(); 
 			}
 		}
-		logger.info("["+this.getClass().getName()+"][toRectiCheck][µ¥Î»È«³Æ]"+danweilongname);
+		logger.info("["+this.getClass().getName()+"][toRectiCheck][å•ä½å…¨ç§°]"+danweilongname);
 		
 		UserEntity entity_danwei1bashou = userService.getTownofficerByDanwei(danweilongname);
-		logger.info("["+this.getClass().getName()+"][toRectiCheck][µ¥Î»1°ÑÊÖ]"+entity_danwei1bashou.getId());
+		logger.info("["+this.getClass().getName()+"][toRectiCheck][å•ä½1æŠŠæ‰‹]"+entity_danwei1bashou.getId());
 		entity.setBecheckedbuleader(entity_danwei1bashou.getId());
 		
 		request = rectiCheckService.setRequestFromEntity(request, entity);
@@ -205,36 +205,36 @@ public class RectiCheckController
 	
 	
 
-	//·¢ÆğÉêÇë
+	//å‘èµ·ç”³è¯·
 	@RequestMapping("start_")
 	public String start_(HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][start_][start]");
 		RectiCheckEntity entity = new RectiCheckEntity();
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiCheckService.setEntityFromRequest(request, entity);		
 		logger.info("["+this.getClass().getName()+"][start_][becheckedbuleader]:"+entity.getBecheckedbuleader());				
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("javaid", entity.getJavaid());
 		map.put("starter", entity.getStarter());
 		
-		//·¢ÆğÁ÷³Ì
+		//å‘èµ·æµç¨‹
 		ProcessInstance ins = executionService.startProcessInstanceByKey("rectification6", map);
 		logger.info("["+this.getClass().getName()+"][start_][process start]");
 		logger.info("["+this.getClass().getName()+"][start_][process id]:"+ins.getId());
 		
 
-		//Çåµ¥µÄÁ÷³ÌĞÅÏ¢³Ö¾Ã»¯
+		//æ¸…å•çš„æµç¨‹ä¿¡æ¯æŒä¹…åŒ–
 		entity.setProcessid(ins.getId());
-		entity.setTaskname("Ö÷Òª¸ºÔğÈË:"+entity.getBecheckedbuleader()+"ÉóÅú");
-		//javaid´æÔÚ
+		entity.setTaskname("ä¸»è¦è´Ÿè´£äºº:"+entity.getBecheckedbuleader()+"å®¡æ‰¹");
+		//javaidå­˜åœ¨
 		if (rectiCheckService.checkIdExist(entity)>0) {
 			rectiCheckService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiCheckService.insert(entity);
 		}
 		
-		//Íê³ÉµÚÒ»¸ö½Úµã
+		//å®Œæˆç¬¬ä¸€ä¸ªèŠ‚ç‚¹
 		Map<String, String> map2 = new HashMap<String, String>();
 		String becheckedbuleader = entity.getBecheckedbuleader();
 		logger.info("["+this.getClass().getName()+"][start_][becheckedbuleader]:"+becheckedbuleader);
@@ -243,12 +243,12 @@ public class RectiCheckController
 		String taskId =myJbmpService.getTaskIdByProcessId(ins.getId());
 		logger.info("["+this.getClass().getName()+"][start_][task id]:"+taskId);
 		taskService.setVariables(taskId, map2);
-		taskService.completeTask(taskId, "·¢ÆğÁ÷³Ì");
+		taskService.completeTask(taskId, "å‘èµ·æµç¨‹");
 		
 		request.setAttribute("prepagejsp", "rectiCheck.jsp");
 		request.setAttribute("listRectiAc", "this_month");
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -267,42 +267,42 @@ public class RectiCheckController
 		
 		RectiCheckEntity entity = new RectiCheckEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiCheckService.setEntityFromRequest(request, entity);
 		
 		
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiCheckService.checkIdExist(entity)>0) {
 			rectiCheckService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiCheckService.insert(entity);
 		}
 		
-		//Êı¾İ¿âµÄÉóÅúµÈÄÚÈİÈ¡µÃ
+		//æ•°æ®åº“çš„å®¡æ‰¹ç­‰å†…å®¹å–å¾—
 		RectiCheckEntity entitySaved = rectiCheckService.getById(entity.getJavaid());
 		request.setAttribute("entity",entity);
 		
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//¾ÖÁìµ¼listÈ¡µÃ
+		//å±€é¢†å¯¼listå–å¾—
 		List<UserEntity>  townofficerList =userService.getUserListByTownOfficer(user_danwei);
 		request.setAttribute("townofficerList",townofficerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
 		if (pageid.equals("rectiCheck.jsp")) {
 			request.setAttribute("prepagejsp", "rectiNewEntrance.jsp");
-			request.setAttribute("messeageForSave", "±£´æ³É¹¦£¡µã»÷°´Å¥²é¿´¡£");
+			request.setAttribute("messeageForSave", "ä¿å­˜æˆåŠŸï¼ç‚¹å‡»æŒ‰é’®æŸ¥çœ‹ã€‚");
 			
 			
 			request = rectiCheckService.setRequestFromEntity(request, entitySaved);
@@ -311,7 +311,7 @@ public class RectiCheckController
 			return "rectiCheck";
 		} else {
 			request.setAttribute("prepagejsp", "rectiNewEntrance.jsp");
-			request.setAttribute("taskName", "Òş»¼·¢ÆğÈË");
+			request.setAttribute("taskName", "éšæ‚£å‘èµ·äºº");
 			logger.info("["+this.getClass().getName()+"][save_][end]---goto[detail.jsp]");
 			return "detail";
 		}
@@ -319,7 +319,7 @@ public class RectiCheckController
 	}
 
 
-	//É¾³ı£¨Òş»¼ĞÅÏ¢¹ÜÀíÒ³ÃæÓÃ£©
+	//åˆ é™¤ï¼ˆéšæ‚£ä¿¡æ¯ç®¡ç†é¡µé¢ç”¨ï¼‰
 	@RequestMapping("deleteListRectiCheck")
 	public String  deleteListRectiCheck(String listRectiAc, HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][deleteListRectiCheck][start]");
@@ -333,20 +333,20 @@ public class RectiCheckController
 		//executionService.deleteProcessInstanceCascade(executionId);
 		//taskService.deleteTask(taskId);
 		RectiCheckEntity entity = rectiCheckService.getById(javaid);
-		//É¾³ırectiCheckµÄÊı¾İ
+		//åˆ é™¤rectiCheckçš„æ•°æ®
 		rectiCheckService.delete(entity,request);
 		
-		//É¾³ıÒÑ¾­·¢ÆğµÄÁ÷³Ì
-		//ÏÂÁĞÇé¿ö²»ĞèÒªÉ¾³ıÁ÷³Ì
-		//processidÎª¿ÕµÄ
+		//åˆ é™¤å·²ç»å‘èµ·çš„æµç¨‹
+		//ä¸‹åˆ—æƒ…å†µä¸éœ€è¦åˆ é™¤æµç¨‹
+		//processidä¸ºç©ºçš„
 		if ( common.isEmpty(processid)) {
-			//²»É¾³ı
+			//ä¸åˆ é™¤
 		} else {
 			executionService.deleteProcessInstanceCascade(processid);
 		}
 		request.setAttribute("listRectiAc", listRectiAc);
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -373,7 +373,7 @@ public class RectiCheckController
 		request.getSession().setAttribute("s_searchForAllFlg",  entity.getS_searchForAllFlg());
 		request = rectiSearchService.setRequestFromEntity(request, entity);
 		
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -402,9 +402,9 @@ public class RectiCheckController
 		String s_searchForAllFlg  = (String)request.getSession().getAttribute("s_searchForAllFlg");
 		
 		
-		//ÉèÖÃµ±Ç°Ò³
+		//è®¾ç½®å½“å‰é¡µ
         int intPage = (page==null||page<=0)?1:page;
-        //ÉèÖÃÃ¿Ò³ÏÔÊ¾µÄÊıÁ¿
+        //è®¾ç½®æ¯é¡µæ˜¾ç¤ºçš„æ•°é‡
         int intPageSize = rows==null||rows<=0?10:rows;;
 
 		logger.info("["+this.getClass().getName()+"][listRectiGet][listRectiAc]:"+listRectiAc);
@@ -436,7 +436,7 @@ public class RectiCheckController
 		
 		return result;
 	}
-	//Íê³ÉÈÎÎñ
+	//å®Œæˆä»»åŠ¡
 	@RequestMapping("complete")
 	public String complete(String taskid, HttpServletRequest request) throws UnsupportedEncodingException {
 		logger.info("["+this.getClass().getName()+"][complete][start]");
@@ -448,7 +448,7 @@ public class RectiCheckController
 		
 		RectiCheckEntity entity = new RectiCheckEntity();
 		
-		//±íµ¥ÄÚÈİÉèÖÃµ½entity
+		//è¡¨å•å†…å®¹è®¾ç½®åˆ°entity
 		entity = rectiCheckService.setEntityFromRequest(request, entity);
 		entity.setTaskid(taskid);
 		
@@ -469,23 +469,23 @@ public class RectiCheckController
 		
 		//String geofficer = userService.getGeofficerById(entity.getStarter()).getId();
 		//String townofficer = userService.getTownofficerById(entity.getStarter()).getId();
-		//ÊĞ¾Ö×ÛºÏ°ì¹«ÊÒ
-		String cityofficer = userService.getGeofficerByDanwei("ÊĞ¾Ö¹«Ë¾").getId();
+		//å¸‚å±€ç»¼åˆåŠå…¬å®¤
+		String cityofficer = userService.getGeofficerByDanwei("å¸‚å±€å…¬å¸").getId();
 		logger.info("["+this.getClass().getName()+"][complete][cityofficer]:"+cityofficer);
-		//ÊÜ¼ìµ¥Î»µÄ×ÛºÏ°ì¹«ÊÒ
+		//å—æ£€å•ä½çš„ç»¼åˆåŠå…¬å®¤
 		DanweiEntity  entity_danwei2 =danweiService.getFullName(entity.getDanwei());
 		String danwei_fullname2 = entity_danwei2.getName();
 		logger.info("["+this.getClass().getName()+"][complete][danwei_fullname]:"+danwei_fullname2);
 		String becheckedDanweiGeOfficer = userService.getGeofficerByDanwei(danwei_fullname2).getId();
 		logger.info("["+this.getClass().getName()+"][complete][becheckedDanweiGeOfficer]:"+becheckedDanweiGeOfficer);
-		//ÊĞ¾Ö°²È«¹ÜÀíÔ±
-		String safetymanager = userService.getSafetymanagerByDanwei("ÊĞ¾Ö¹«Ë¾").getId();
+		//å¸‚å±€å®‰å…¨ç®¡ç†å‘˜
+		String safetymanager = userService.getSafetymanagerByDanwei("å¸‚å±€å…¬å¸").getId();
 		
-		if (entity.getTaskname().contains("Ö÷Òª¸ºÔğÈË") ){
-			if ( strTrans.equals("Ìá½»") ){
+		if (entity.getTaskname().contains("ä¸»è¦è´Ÿè´£äºº") ){
+			if ( strTrans.equals("æäº¤") ){
 				entity.setTownofficer(id);
 				entity.setTownofficerokdate(df.format(date));
-				entity.setTaskname("×ÛºÏ°ì¹«ÊÒ£º"+becheckedDanweiGeOfficer+"ÉóÅú");
+				entity.setTaskname("ç»¼åˆåŠå…¬å®¤ï¼š"+becheckedDanweiGeOfficer+"å®¡æ‰¹");
 			} else {
 				entity.setTownofficer("");
 				entity.setTownofficerokdate("");
@@ -496,36 +496,36 @@ public class RectiCheckController
 			map.put("geofficer", becheckedDanweiGeOfficer);
 			
 			taskService.setVariables(taskid, map);
-		//ÏÈ½øĞĞÅĞ¶Ï	
-		} else if (entity.getTaskname().contains("×ÛºÏ°ì¹«ÊÒÔÙ´ÎÉóÅú") ) {
+		//å…ˆè¿›è¡Œåˆ¤æ–­	
+		} else if (entity.getTaskname().contains("ç»¼åˆåŠå…¬å®¤å†æ¬¡å®¡æ‰¹") ) {
 			
-			if  (strTrans.equals("ÉóÅú")) {
+			if  (strTrans.equals("å®¡æ‰¹")) {
 				entity.setGeofficer(id);
 				entity.setGeofficername(name);
 				entity.setGeofficerokdate(df.format(date));
-				entity.setTaskname("ÊĞ¾Ö°²È«¹ÜÀíÔ±È·ÈÏÑéÊÕ:"+safetymanager);
+				entity.setTaskname("å¸‚å±€å®‰å…¨ç®¡ç†å‘˜ç¡®è®¤éªŒæ”¶:"+safetymanager);
 			} else {
 				entity.setGeofficer("");
 				entity.setGeofficername("");
 			}
 	
-		} else if (entity.getTaskname().contains("×ÛºÏ°ì¹«ÊÒ") ){
+		} else if (entity.getTaskname().contains("ç»¼åˆåŠå…¬å®¤") ){
 			Map<String, String> map1 = new HashMap<String, String>();
 			map1.put("cityofficer", cityofficer);
 			taskService.setVariables(taskid, map1);
-			if ( strTrans.equals("ÉóÅú") ){
+			if ( strTrans.equals("å®¡æ‰¹") ){
 				if ("rectiLevelYes".equals(strResult)){
 					Map<String, Integer> map = new HashMap<String, Integer>();
 					map.put("rectiLevel", Integer.valueOf(1));
 					taskService.setVariables(taskid, map);
-					entity.setRectilevel("ÖØ´óÒş»¼");
-					entity.setTaskname("ÊĞ¾Ö°ì¹«ÊÒ£º"+cityofficer+"ÉóÅú");
+					entity.setRectilevel("é‡å¤§éšæ‚£");
+					entity.setTaskname("å¸‚å±€åŠå…¬å®¤ï¼š"+cityofficer+"å®¡æ‰¹");
 				} else if ("rectiLevelNo".equals(strResult)){
 					Map<String, Integer> map = new HashMap<String, Integer>();
 					map.put("rectiLevel", Integer.valueOf(0));
 					taskService.setVariables(taskid, map);
-					entity.setRectilevel("·ÇÖØ´óÒş»¼");
-					entity.setTaskname("ÊĞ¾Ö°²È«¹ÜÀíÔ±È·ÈÏÑéÊÕ¡£"+safetymanager);
+					entity.setRectilevel("éé‡å¤§éšæ‚£");
+					entity.setTaskname("å¸‚å±€å®‰å…¨ç®¡ç†å‘˜ç¡®è®¤éªŒæ”¶ã€‚"+safetymanager);
 				}
 				entity.setGeofficer(id);
 				entity.setGeofficername(name);
@@ -535,13 +535,13 @@ public class RectiCheckController
 				entity.setGeofficername("");
 			}
 			
-		} else if (entity.getTaskname().contains("ÊĞ¾Ö°ì¹«ÊÒ") ) {
+		} else if (entity.getTaskname().contains("å¸‚å±€åŠå…¬å®¤") ) {
 			
-			if  (strTrans.equals("ÉóÅú")) {
+			if  (strTrans.equals("å®¡æ‰¹")) {
 				entity.setCityofficer(id);
 				entity.setCityofficername(name);
 				entity.setCityofficerokdate(df.format(date));
-				entity.setTaskname("×ÛºÏ°ì¹«ÊÒÔÙ´ÎÉóÅú:"+becheckedDanweiGeOfficer);
+				entity.setTaskname("ç»¼åˆåŠå…¬å®¤å†æ¬¡å®¡æ‰¹:"+becheckedDanweiGeOfficer);
 			} else {
 				entity.setCityofficer("");
 				entity.setCityofficername("");
@@ -551,22 +551,22 @@ public class RectiCheckController
 			map.put("geofficer", becheckedDanweiGeOfficer);
 			taskService.setVariables(taskid, map);
 			
-		} else if (entity.getTaskname().contains("ÊĞ¾Ö°²È«¹ÜÀíÔ±È·ÈÏÑéÊÕ") ) {
-			if  (strTrans.equals("ÑéÊÕ")) {
+		} else if (entity.getTaskname().contains("å¸‚å±€å®‰å…¨ç®¡ç†å‘˜ç¡®è®¤éªŒæ”¶") ) {
+			if  (strTrans.equals("éªŒæ”¶")) {
 				entity.setSafetymanager(id);
 				entity.setSafetymanagername(name);
 				entity.setSafetymanagerokdate(df.format(date));
-				entity.setTaskname("ÊĞ¾Ö°²È«¹ÜÀíÔ±ÑéÊÕ½áÊøÁ÷³Ì¡£"+safetymanager);
+				entity.setTaskname("å¸‚å±€å®‰å…¨ç®¡ç†å‘˜éªŒæ”¶ç»“æŸæµç¨‹ã€‚"+safetymanager);
 			} else {
 				entity.setSafetymanager("");
 				entity.setSafetymanagername("");
 			}
 			
 		}
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiCheckService.checkIdExist(entity)>0) {
 			rectiCheckService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiCheckService.insert(entity);
 		}
@@ -581,7 +581,7 @@ public class RectiCheckController
 		request.setAttribute("strTrans", strTrans);
 		request.setAttribute("entity", entity);
 		request.setAttribute("listRectiAc", "this_month");
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -608,10 +608,10 @@ public class RectiCheckController
 		RectiCheckEntity entity = rectiCheckService.getById(javaid);
 		
 		entity.setTaskid(taskid);
-		//javaid´æÔÚ
+		//javaidå­˜åœ¨
 		if (rectiCheckService.checkIdExist(entity)>0) {
 			rectiCheckService.update(entity);
-		//javaid²»´æÔÚ
+		//javaidä¸å­˜åœ¨
 		} else {
 			rectiCheckService.insert(entity);
 		}
@@ -622,19 +622,19 @@ public class RectiCheckController
 		request = rectiCheckService.setRequestFromEntity(request, entity);
 		
 		String user_danwei = (String)request.getSession().getAttribute("user_danwei");
-		//¾ÖÁìµ¼listÈ¡µÃ
+		//å±€é¢†å¯¼listå–å¾—
 		List<UserEntity>  townofficerList =userService.getUserListByTownOfficer(user_danwei);
 		request.setAttribute("townofficerList",townofficerList);
-		//µ¥Î»listÈ¡µÃ
+		//å•ä½listå–å¾—
 		List<DanweiEntity>  danweiList =danweiService.getAll();
 		request.setAttribute("danweiList",danweiList);
-		//·¢ÆğÈËËùÔÚµ¥Î»È¡µÃ
+		//å‘èµ·äººæ‰€åœ¨å•ä½å–å¾—
 		DanweiEntity  danwei_entity =danweiService.getShortName(user_danwei);
 		request.setAttribute("user_danwei",danwei_entity.getId());
-		//¼ì²éµØµãlistÈ¡µÃ
+		//æ£€æŸ¥åœ°ç‚¹listå–å¾—
 		List<LocationEntity>  locationList =locationService.getAll();
 		request.setAttribute("locationList",locationList);
-		//Òş»¼ÀàĞÍlistÈ¡µÃ
+		//éšæ‚£ç±»å‹listå–å¾—
 		List<LocationEntity>  yinhuanTypeList =locationService.getYinhuanType();
 		request.setAttribute("yinhuanTypeList",yinhuanTypeList);
 		
@@ -660,43 +660,43 @@ public class RectiCheckController
 		
 		
 	    Map<String, Object> param = new HashMap<String, Object>();
-	    param.put("¤¡", entity.getNo());
-	    param.put("¤£", entity.getDanwei());
-	    param.put("¤¥", entity.getCheckdate());
-	    param.put("¤§", entity.getDeadlinedate());
-	    param.put("¤©", entity.getName());
-	    param.put("¤«", entity.getCheckname());
-	    param.put("¤­", entity.getContent());
-	    param.put("¤¯", entity.getRecti1());
-	    param.put("¤±", entity.getRecti2());
-	    param.put("¤³", entity.getRecti3());
-	    param.put("¤µ", entity.getRecti4());
-	    param.put("¤·", entity.getNrecti1());
-	    param.put("¤¹", entity.getNrecti2());
-	    param.put("¤»", entity.getNrecti3());
-	    param.put("¤½", entity.getNrecti4());
-	    param.put("¤¿", entity.getNrecti5());
-	    param.put("¤Á", entity.getNrecti6());
-	    param.put("¤Ä", entity.getNrecti7());
-	    param.put("¤Æ", entity.getNrecti8());
-	    param.put("¤È", entity.getRectisuggest());
-	    param.put("¤Ê", entity.getRectistatus());
-	    param.put("¤Ë", entity.getBecheckedbuleadername()); 
-	    param.put("¤Ì", entity.getRecticheckteamleadername());
-	    param.put("¤Í", entity.getRectimakesurename());
-	    param.put("¤Î", entity.getTownofficerokmessage());
-	    param.put("¤Ï", entity.getTownofficer());
-	    param.put("¤Ò", entity.getTownofficerokdate());
-	    param.put("¤Õ", entity.getGeofficerokmessage());
-	    param.put("¤Ø", entity.getGeofficername());
-	    param.put("¤Û", entity.getGeofficerokdate());
-	    param.put("¤Ş", entity.getCityofficerokmessage());
-	    param.put("¤ß", entity.getCityofficername());
-	    param.put("¤à", entity.getCityofficerokdate());
-	    param.put("¤á", entity.getSafetymanagerokmessage());
-	    param.put("¤â", entity.getSafetymanagername());
-	    param.put("¤ã", entity.getSafetymanagerokdate());
-	    param.put("¤è", entity.getLocation1() + " " + entity.getLocation2() + " "+ entity.getLocation3());
+	    param.put("ã", entity.getNo());
+	    param.put("ãƒ", entity.getDanwei());
+	    param.put("ã…", entity.getCheckdate());
+	    param.put("ã‡", entity.getDeadlinedate());
+	    param.put("ã‰", entity.getName());
+	    param.put("ã‹", entity.getCheckname());
+	    param.put("ã", entity.getContent());
+	    param.put("ã", entity.getRecti1());
+	    param.put("ã‘", entity.getRecti2());
+	    param.put("ã“", entity.getRecti3());
+	    param.put("ã•", entity.getRecti4());
+	    param.put("ã—", entity.getNrecti1());
+	    param.put("ã™", entity.getNrecti2());
+	    param.put("ã›", entity.getNrecti3());
+	    param.put("ã", entity.getNrecti4());
+	    param.put("ãŸ", entity.getNrecti5());
+	    param.put("ã¡", entity.getNrecti6());
+	    param.put("ã¤", entity.getNrecti7());
+	    param.put("ã¦", entity.getNrecti8());
+	    param.put("ã¨", entity.getRectisuggest());
+	    param.put("ãª", entity.getRectistatus());
+	    param.put("ã«", entity.getBecheckedbuleadername()); 
+	    param.put("ã¬", entity.getRecticheckteamleadername());
+	    param.put("ã­", entity.getRectimakesurename());
+	    param.put("ã®", entity.getTownofficerokmessage());
+	    param.put("ã¯", entity.getTownofficer());
+	    param.put("ã²", entity.getTownofficerokdate());
+	    param.put("ãµ", entity.getGeofficerokmessage());
+	    param.put("ã¸", entity.getGeofficername());
+	    param.put("ã»", entity.getGeofficerokdate());
+	    param.put("ã¾", entity.getCityofficerokmessage());
+	    param.put("ã¿", entity.getCityofficername());
+	    param.put("ã‚€", entity.getCityofficerokdate());
+	    param.put("ã‚", entity.getSafetymanagerokmessage());
+	    param.put("ã‚‚", entity.getSafetymanagername());
+	    param.put("ã‚ƒ", entity.getSafetymanagerokdate());
+	    param.put("ã‚ˆ", entity.getLocation1() + " " + entity.getLocation2() + " "+ entity.getLocation3());
 	
 	    String strModelFileOfRealServerPath = 
 	    		request.getRealPath("/") + "modelfile\\recticheck3.docx";
@@ -718,7 +718,7 @@ public class RectiCheckController
 		logger.info("["+this.getClass().getName()+"][printword][strOutPutRealServerPath]:"+strOutPutRealServerPath);
 		logger.info("["+this.getClass().getName()+"][printword][strRealHTTPPath]:"+strRealHTTPPath);
 	    request.setAttribute("strRealHTTPPath", strRealHTTPPath);
-	    request.setAttribute("strFileNameForView", "°²È«¼ì²é¼ÇÂ¼±í ");
+	    request.setAttribute("strFileNameForView", "å®‰å…¨æ£€æŸ¥è®°å½•è¡¨ ");
 	    
 	    
 	    logger.info("["+this.getClass().getName()+"][printword][end]");

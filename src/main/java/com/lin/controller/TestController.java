@@ -28,13 +28,13 @@ public class TestController  {
 	private UserService userService;
 	private static Logger logger = Logger.getLogger(TestController.class);
 	/**
-	 * 获取文章
+	 * 鑾峰彇鏂囩珷
 	 * @author guangshuai.wang
-	 * 2014-10-14上午12:10:40
+	 * 2014-10-14涓婂崍12:10:40
 	 * @param type
 	 * @param request
-	 * @param nowpage 			当前页，这个是jquery-easyui自己主动提交的能參数，參数名必须为page
-	 * @param rows				每页显示的记录数，这个是jquery-easyui自己主动提交的參数，參数名必须为rows
+	 * @param nowpage 			褰撳墠椤碉紝杩欎釜鏄痡query-easyui鑷繁涓诲姩鎻愪氦鐨勮兘鍙冩暟锛屽弮鏁板悕蹇呴』涓簆age
+	 * @param rows				姣忛〉鏄剧ず鐨勮褰曟暟锛岃繖涓槸jquery-easyui鑷繁涓诲姩鎻愪氦鐨勫弮鏁帮紝鍙冩暟鍚嶅繀椤讳负rows
 	 * @return
 	 */
 	@RequestMapping("getAll")
@@ -43,7 +43,7 @@ public class TestController  {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", "111");
-		result.put("msg", "成功");  
+		result.put("msg", "鎴愬姛");  
 		logger.info("["+this.getClass().getName()+"][getAll][end]");
 		return result;
     }

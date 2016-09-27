@@ -36,11 +36,11 @@ public class Log4JTestServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) 
      */  
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
-        // ¼ÇÂ¼debug¼¶±ğµÄĞÅÏ¢    
+        // è®°å½•debugçº§åˆ«çš„ä¿¡æ¯    
         logger.debug("This is debug message.");    
-        // ¼ÇÂ¼info¼¶±ğµÄĞÅÏ¢    
+        // è®°å½•infoçº§åˆ«çš„ä¿¡æ¯    
         logger.info("This is info message.");    
-        // ¼ÇÂ¼error¼¶±ğµÄĞÅÏ¢    
+        // è®°å½•errorçº§åˆ«çš„ä¿¡æ¯    
         logger.error("This is error message.");    
     }  
 

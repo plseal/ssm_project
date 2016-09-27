@@ -25,13 +25,13 @@ public class ZuzhituController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(ZuzhituController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	
 	@Resource(name="danweiService")
@@ -41,13 +41,13 @@ public class ZuzhituController extends HttpServlet{
 	private RectiSearchService rectiSearchService;
 	
 	@Resource(name="myJbpmService")
-	private MyJbpmService myJbpmService;//ÈÎÎñ¹ÜÀí
+	private MyJbpmService myJbpmService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 	
 	public ZuzhituController()
 	{
@@ -55,7 +55,7 @@ public class ZuzhituController extends HttpServlet{
 
 	
 	
-	//»ñÈ¡Msg
+	//è·å–Msg
 	@RequestMapping("to_Zuzhitu")
 	public String to_Zuzhitu(HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][getZuzhitu][start]");

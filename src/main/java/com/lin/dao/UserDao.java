@@ -111,7 +111,7 @@ public class UserDao
 	public UserEntity getTownofficerByDanwei(String danwei){
 		logger.info("["+this.getClass().getName()+"][getTownofficerByDanwei][start]");
 		String sql = "select * from user where user_danwei = :danwei AND role like '%townofficer%'";
-		if ("ÊĞ¾Ö¹«Ë¾".equals(danwei)) {
+		if ("å¸‚å±€å…¬å¸".equals(danwei)) {
 			 sql = "select * from user where user_danwei = :danwei AND role like '%cityofficer%'";
 		}
 		RowMapper<UserEntity> rm = ParameterizedBeanPropertyRowMapper.newInstance(UserEntity.class);
@@ -172,7 +172,7 @@ public class UserDao
 	}
 	public UserEntity getCityofficerById(String id){
 		logger.info("["+this.getClass().getName()+"][getCityofficerById][start]");
-		String sql = "select * from user where (user_danwei IN (SELECT user_danwei from user WHERE id=:id ) OR user_danwei = 'ÊĞ¾Ö¹«Ë¾') AND role like '%cityofficer%'";
+		String sql = "select * from user where (user_danwei IN (SELECT user_danwei from user WHERE id=:id ) OR user_danwei = 'å¸‚å±€å…¬å¸') AND role like '%cityofficer%'";
 		
 		RowMapper<UserEntity> rm = ParameterizedBeanPropertyRowMapper.newInstance(UserEntity.class);
 		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
@@ -312,23 +312,23 @@ public class UserDao
 		sql = sql + "and user_danwei = '" + entity.getS_danwei() + "'";
 		}
 		if (!"".equals(entity.getS_zhiwei())) {
-			if("ÊĞ¾Ö¾Ö³¤".equals(entity.getS_zhiwei())){
+			if("å¸‚å±€å±€é•¿".equals(entity.getS_zhiwei())){
 				sql =  sql + " and role like '%cityofficer%'";
-			} else if ("ÏØ¾Ö¾Ö³¤".equals(entity.getS_zhiwei())) {
+			} else if ("å¿å±€å±€é•¿".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%townofficer%'";
-			} else if ("·Ö¹ÜÁìµ¼".equals(entity.getS_zhiwei())) {
+			} else if ("åˆ†ç®¡é¢†å¯¼".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%manager%'";
-			} else if ("°ì¹«ÊÒÖ÷ÈÎ".equals(entity.getS_zhiwei())) {
+			} else if ("åŠå…¬å®¤ä¸»ä»»".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%geofficer%'";
-			} else if ("²¿ÃÅ¸ºÔğÈË".equals(entity.getS_zhiwei())) {
+			} else if ("éƒ¨é—¨è´Ÿè´£äºº".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%leader%'";
-			} else if ("°²È«¹ÜÀíÔ±".equals(entity.getS_zhiwei())) {
+			} else if ("å®‰å…¨ç®¡ç†å‘˜".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%safetyofficer%'";
-			} else if ("°²È«¹ÜÀí²¿ÃÅ¸ºÔğÈË".equals(entity.getS_zhiwei())) {
+			} else if ("å®‰å…¨ç®¡ç†éƒ¨é—¨è´Ÿè´£äºº".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%approver1%'";
-			} else if ("·Ö¹Ü°²È«Áìµ¼".equals(entity.getS_zhiwei())) {
+			} else if ("åˆ†ç®¡å®‰å…¨é¢†å¯¼".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%approver2%'";
-			} else if ("Ô±¹¤".equals(entity.getS_zhiwei())) {
+			} else if ("å‘˜å·¥".equals(entity.getS_zhiwei())) {
 				sql =  sql + " and role like '%yuangong%'";
 			}
 			

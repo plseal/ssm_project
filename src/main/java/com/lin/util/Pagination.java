@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Pagination {  
       
-    private int totalPages; // ×ÜÒ³Êı
-    private int totalRecordCnt; // ×ÜÌõÊı  
+    private int totalPages; // æ€»é¡µæ•°
+    private int totalRecordCnt; // æ€»æ¡æ•°  
 
-	private int page;   // µ±Ç°Ò³Âë  
-    private List resultList;    // ½á¹û¼¯´æ·ÅList  
+	private int page;   // å½“å‰é¡µç   
+    private List resultList;    // ç»“æœé›†å­˜æ”¾List  
   
     private static Logger logger = Logger.getLogger(Pagination.class);
     
@@ -29,7 +29,7 @@ public class Pagination {
         this.totalRecordCnt = namedParameterJdbcTemplate.getJdbcOperations().queryForInt(countSQL);
         logger.info("["+this.getClass().getName()+"][setTotalPages][totalRecordCnt]"+this.totalRecordCnt);
         setTotalPages(numPerPage,totalRecordCnt);  
-        int startIndex = (currentPage - 1) * numPerPage;    //Êı¾İ¶ÁÈ¡ÆğÊ¼index  
+        int startIndex = (currentPage - 1) * numPerPage;    //æ•°æ®è¯»å–èµ·å§‹index  
           
         StringBuffer paginationSQL = new StringBuffer(" ");  
         paginationSQL.append(sql);  
@@ -69,7 +69,7 @@ public class Pagination {
     public void setResultList(List resultList) {  
         this.resultList = resultList;  
     }  
-    // ¼ÆËã×ÜÒ³Êı  
+    // è®¡ç®—æ€»é¡µæ•°  
     public void setTotalPages(int numPerPage,int totalRows) {  
         if (totalRows % numPerPage == 0) {  
             this.totalPages = totalRows / numPerPage;  

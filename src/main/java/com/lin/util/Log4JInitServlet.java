@@ -31,23 +31,23 @@ public class Log4JInitServlet extends HttpServlet {
 
 
     public void init(ServletConfig config) throws ServletException {  
-        System.out.println("Log4JInitServlet ÕıÔÚ³õÊ¼»¯ log4jÈÕÖ¾ÉèÖÃĞÅÏ¢");  
+        System.out.println("Log4JInitServlet æ­£åœ¨åˆå§‹åŒ– log4jæ—¥å¿—è®¾ç½®ä¿¡æ¯");  
         String log4jLocation = config.getInitParameter("log4j-properties-location");  
 
         ServletContext sc = config.getServletContext();  
 
         if (log4jLocation == null) {  
-            System.err.println("*** Ã»ÓĞ log4j-properties-location ³õÊ¼»¯µÄÎÄ¼ş, ËùÒÔÊ¹ÓÃ BasicConfigurator³õÊ¼»¯");  
+            System.err.println("*** æ²¡æœ‰ log4j-properties-location åˆå§‹åŒ–çš„æ–‡ä»¶, æ‰€ä»¥ä½¿ç”¨ BasicConfiguratoråˆå§‹åŒ–");  
             BasicConfigurator.configure();  
         } else {  
             String webAppPath = sc.getRealPath("/");  
             String log4jProp = webAppPath + log4jLocation;  
             File yoMamaYesThisSaysYoMama = new File(log4jProp);  
             if (yoMamaYesThisSaysYoMama.exists()) {  
-                System.out.println("Ê¹ÓÃ: " + log4jProp+"³õÊ¼»¯ÈÕÖ¾ÉèÖÃĞÅÏ¢");  
+                System.out.println("ä½¿ç”¨: " + log4jProp+"åˆå§‹åŒ–æ—¥å¿—è®¾ç½®ä¿¡æ¯");  
                 PropertyConfigurator.configure(log4jProp);  
             } else {  
-                System.err.println("*** " + log4jProp + " ÎÄ¼şÃ»ÓĞÕÒµ½£¬ ËùÒÔÊ¹ÓÃ BasicConfigurator³õÊ¼»¯");  
+                System.err.println("*** " + log4jProp + " æ–‡ä»¶æ²¡æœ‰æ‰¾åˆ°ï¼Œ æ‰€ä»¥ä½¿ç”¨ BasicConfiguratoråˆå§‹åŒ–");  
                 BasicConfigurator.configure();  
             }  
         }  
