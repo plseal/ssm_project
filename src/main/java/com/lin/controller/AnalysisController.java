@@ -31,7 +31,7 @@ public class AnalysisController
 		entity = analysisService.setEntityFromRequest(request, entity);
 		
 		List<AnalysisEntity> list_rectiNewCheck = analysisService.getAllAnalysis_rectiNew(entity);
-		if ("ÉÏ¼¶¼ì²é×é°²È«¼ì²éÒş»¼ĞÅÏ¢".equals(entity.getAnalysisfrom())) {
+		if ("ä¸Šçº§æ£€æŸ¥ç»„å®‰å…¨æ£€æŸ¥éšæ‚£ä¿¡æ¯".equals(entity.getAnalysisfrom())) {
 			list_rectiNewCheck = analysisService.getAllAnalysis_rectiCheck(entity);
 		}
 		
@@ -39,33 +39,33 @@ public class AnalysisController
 		String str_ana_labels = "";
 		String str_douhao = ",";
 		String str_rectiLevel = ",";
-		//×éÖ¯³É×Ö·û´®ÏòÒ³Ãæ´«Êä
+		//ç»„ç»‡æˆå­—ç¬¦ä¸²å‘é¡µé¢ä¼ è¾“
 		for (int i=0;i<list_rectiNewCheck.size();i++) {
 			AnalysisEntity entitydao =(AnalysisEntity)list_rectiNewCheck.get(i);
 			if (i == list_rectiNewCheck.size()-1){
 				str_douhao = "";
 			}
-			if ("°´µ¥Î»£¨²¿ÃÅ£©Í³¼Æ".equals(entity.getAnalysistype())) {
+			if ("æŒ‰å•ä½ï¼ˆéƒ¨é—¨ï¼‰ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 				str_ana_data = str_ana_data + entitydao.getDanwei_cnt() + str_douhao;
-				str_ana_labels = str_ana_labels + entitydao.getDanwei() + entitydao.getDanwei_cnt() + "¼ş" + str_douhao;
-			}else if ("°´µØµãÍ³¼Æ".equals(entity.getAnalysistype())) {
+				str_ana_labels = str_ana_labels + entitydao.getDanwei() + entitydao.getDanwei_cnt() + "ä»¶" + str_douhao;
+			}else if ("æŒ‰åœ°ç‚¹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 				str_ana_data = str_ana_data + entitydao.getLocation_cnt_sum() + str_douhao;
-				str_ana_labels = str_ana_labels + entitydao.getLocation() + entitydao.getLocation_cnt_sum() + "¼ş" + str_douhao;
-			} else if ("°´Òş»¼ÀàĞÍÍ³¼Æ".equals(entity.getAnalysistype())) {
+				str_ana_labels = str_ana_labels + entitydao.getLocation() + entitydao.getLocation_cnt_sum() + "ä»¶" + str_douhao;
+			} else if ("æŒ‰éšæ‚£ç±»å‹ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 				str_ana_data = str_ana_data + entitydao.getRectitype_cnt() + str_douhao;
-				str_ana_labels = str_ana_labels + entitydao.getRectitype() + entitydao.getRectitype_cnt() + "¼ş" + str_douhao;
-			} else if ("°´Òş»¼µÈ¼¶Í³¼Æ".equals(entity.getAnalysistype())) {
+				str_ana_labels = str_ana_labels + entitydao.getRectitype() + entitydao.getRectitype_cnt() + "ä»¶" + str_douhao;
+			} else if ("æŒ‰éšæ‚£ç­‰çº§ç»Ÿè®¡".equals(entity.getAnalysistype())) {
 				str_ana_data = str_ana_data + entitydao.getRectilevel_cnt() + str_douhao;
 				if (common.isEmpty(entitydao.getRectilevel())) {
-					str_rectiLevel = "Î´È·¶¨Òş»¼µÈ¼¶";
+					str_rectiLevel = "æœªç¡®å®šéšæ‚£ç­‰çº§";
 				} else {
 					str_rectiLevel = entitydao.getRectilevel();
 				}
-				str_ana_labels = str_ana_labels + str_rectiLevel + entitydao.getRectilevel_cnt() + "¼ş" + str_douhao;
+				str_ana_labels = str_ana_labels + str_rectiLevel + entitydao.getRectilevel_cnt() + "ä»¶" + str_douhao;
 			} else {
-				//Ä¬ÈÏ°´µ¥Î»£¨²¿ÃÅ£©Í³¼Æ
+				//é»˜è®¤æŒ‰å•ä½ï¼ˆéƒ¨é—¨ï¼‰ç»Ÿè®¡
 				str_ana_data = str_ana_data + entitydao.getDanwei_cnt() + str_douhao;
-				str_ana_labels = str_ana_labels + entitydao.getDanwei() + entitydao.getDanwei_cnt() + "¼ş" + str_douhao;
+				str_ana_labels = str_ana_labels + entitydao.getDanwei() + entitydao.getDanwei_cnt() + "ä»¶" + str_douhao;
 			}
 		}
 		logger.info("["+this.getClass().getName()+"][str_ana_data]"+str_ana_data);
@@ -81,19 +81,19 @@ public class AnalysisController
 	
 		for (int i=0;i<list_rectiCheck.size();i++) {
 			AnalysisEntity entity =(AnalysisEntity)list_rectiCheck.get(i);
-			if ("³µÁ¾Òş»¼".equals(entity.getRectitype())){
+			if ("è½¦è¾†éšæ‚£".equals(entity.getRectitype())){
 				rectitype_option_car_cnt = rectitype_option_car_cnt + Integer.parseInt(entity.getRectitype_cnt());
 			}
-			if ("ÌØÖÖÉè±¸".equals(entity.getRectitype())){
+			if ("ç‰¹ç§è®¾å¤‡".equals(entity.getRectitype())){
 				rectitype_option_special_equipment_cnt = rectitype_option_special_equipment_cnt + Integer.parseInt(entity.getRectitype_cnt());
 			}
-			if ("±êÊ¶Òş»¼".equals(entity.getRectitype())){
+			if ("æ ‡è¯†éšæ‚£".equals(entity.getRectitype())){
 				rectitype_option_mark_cnt = rectitype_option_mark_cnt + Integer.parseInt(entity.getRectitype_cnt());
 			}
-			if ("µçÆøÒş»¼".equals(entity.getRectitype())){
+			if ("ç”µæ°”éšæ‚£".equals(entity.getRectitype())){
 				rectitype_option_electric_cnt = rectitype_option_electric_cnt + Integer.parseInt(entity.getRectitype_cnt());
 			}
-			if ("Ïû·ÀÒş»¼".equals(entity.getRectitype())){
+			if ("æ¶ˆé˜²éšæ‚£".equals(entity.getRectitype())){
 				rectitype_option_fire_control_cnt = rectitype_option_fire_control_cnt + Integer.parseInt(entity.getRectitype_cnt());
 			}
 		}
@@ -103,7 +103,7 @@ public class AnalysisController
 		request.setAttribute("ana_labels", str_ana_labels);
 		
 		request = analysisService.setRequestFromEntity(request, entity);
-		if ("ÖùĞÎÍ¼".equals(entity.getAnalysischart())) {
+		if ("æŸ±å½¢å›¾".equals(entity.getAnalysischart())) {
 			logger.info("["+this.getClass().getName()+"][getdata][goto][analysisBarChart.jsp]");
 			logger.info("["+this.getClass().getName()+"][getdata][end]");
 			return "analysisBarChart";

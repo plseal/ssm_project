@@ -24,22 +24,22 @@ public class NewsController
 {
 	private static Logger logger = Logger.getLogger(NewsController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="newsService")
-	private NewsService newsService;//ÒµÎñÂß¼­
+	private NewsService newsService;//ä¸šåŠ¡é€»è¾‘
 	
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 
 	
 	@RequestMapping("listNews")
