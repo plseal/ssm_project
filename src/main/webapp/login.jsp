@@ -67,7 +67,7 @@
 		</script>
 	</head>
 <style type="text/css">
-body{ background:url(${pageContext.request.contextPath}/images/login.jpg);
+body{ background:url(${pageContext.request.contextPath}/images/login_1.jpg);
 background-size:100% 100%;
 background-repeat:no-repeat;}
 html,body{
