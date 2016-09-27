@@ -33,13 +33,13 @@ public class AdminController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(AdminController.class);
 	@Resource(name="repositoryService")
-	private RepositoryService repositoryService;//-Á÷³Ì¹ÜÀí£¬²¿Êğ·¢²¼
+	private RepositoryService repositoryService;//-æµç¨‹ç®¡ç†ï¼Œéƒ¨ç½²å‘å¸ƒ
 	
 	@Resource(name="taskService")
-	private TaskService taskService;//ÈÎÎñ¹ÜÀí
+	private TaskService taskService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="userService")
-	private UserService userService;//ÈÎÎñ¹ÜÀí
+	private UserService userService;//ä»»åŠ¡ç®¡ç†
 	
 	
 	@Resource(name="danweiService")
@@ -49,13 +49,13 @@ public class AdminController extends HttpServlet{
 	private RectiSearchService rectiSearchService;
 	
 	@Resource(name="myJbpmService")
-	private MyJbpmService myJbpmService;//ÈÎÎñ¹ÜÀí
+	private MyJbpmService myJbpmService;//ä»»åŠ¡ç®¡ç†
 	
 	@Resource(name="executionService")
-	private ExecutionService executionService;//-Á÷³ÌÊµÀı¹ÜÀí
+	private ExecutionService executionService;//-æµç¨‹å®ä¾‹ç®¡ç†
 	
 	@Resource(name="historyService")
-	private HistoryService historyService;//ÒµÎñÂß¼­
+	private HistoryService historyService;//ä¸šåŠ¡é€»è¾‘
 	
 	public AdminController()
 	{
@@ -75,7 +75,7 @@ public class AdminController extends HttpServlet{
 		logger.info("["+this.getClass().getName()+"][deployZIP][end]--goto[listdep.jsp]"+id);
 		return "listdep";
 	}
-	//»ñÈ¡Á÷³Ì¶¨Òå
+	//è·å–æµç¨‹å®šä¹‰
 	@RequestMapping("listProcessDefinition")
 	public @ResponseBody List<DeployEntity> listProcessDefinition(){
 		List<ProcessDefinition> depList = repositoryService.createProcessDefinitionQuery().list();
@@ -100,15 +100,15 @@ public class AdminController extends HttpServlet{
 		String preview = request.getParameter("preview");
 		
 		logger.info("["+this.getClass().getName()+"][loginnew][loginid]"+id);
-		//¼ì²âIDÊÇ·ñ´æÔÚ
-		//ID²»´æÔÚ
+		//æ£€æµ‹IDæ˜¯å¦å­˜åœ¨
+		//IDä¸å­˜åœ¨
 		if (userService.checkIdExist(id) < 1) {
 			strToJsp = "error-login";
-		//ID´æÔÚpas´íÎó
+		//IDå­˜åœ¨pasé”™è¯¯
 		} else if (userService.checkPas(id,pas) < 1){
-			request.setAttribute("errorMSG", "ÃÜÂë´íÎó");
+			request.setAttribute("errorMSG", "å¯†ç é”™è¯¯");
 			strToJsp = "login";
-		//ID´æÔÚ
+		//IDå­˜åœ¨
 		} else {
 			//try {
 			UserEntity ue = userService.getById(id);
@@ -130,7 +130,7 @@ public class AdminController extends HttpServlet{
 			
 			strToJsp = "indexNew";
 		}
-		//ÑİÊ¾»­Ãæ
+		//æ¼”ç¤ºç”»é¢
 		if ("true".equals(preview)) {
 			strToJsp = "indexNew_preview";
 		
@@ -159,7 +159,7 @@ public class AdminController extends HttpServlet{
 	@RequestMapping("to_userAdminJSP")
 	public String to_userAdminJSP(HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][to_userAdminJSP][start]");
-		//»ñµÃ¹«Ë¾Ò»ÀÀ(¼ìË÷ÓÃ)
+		//è·å¾—å…¬å¸ä¸€è§ˆ(æ£€ç´¢ç”¨)
 		List<DanweiEntity> danwei_For_Search_List = danweiService.getAll();
 		request.setAttribute("danwei_For_Search_List",danwei_For_Search_List);
 		
@@ -228,11 +228,11 @@ public class AdminController extends HttpServlet{
 		UserEntity entity = new UserEntity();
 		entity = userService.setEntityFromRequest(request, entity);
 		RectiSearchEntity s_entity = new RectiSearchEntity();
-		s_entity.setS_danwei("ÊĞ¾Ö¹«Ë¾");
+		s_entity.setS_danwei("å¸‚å±€å…¬å¸");
 		List <UserEntity> list = userService.getUserListByDanwei(s_entity);
 		
 		String idCheck = "true";
-		//²é¿´ÊÇ·ñÓĞÖØ¸´µÄÓÃ»§
+		//æŸ¥çœ‹æ˜¯å¦æœ‰é‡å¤çš„ç”¨æˆ·
 		for (int i=0;i<list.size();i++) {
 			if (entity.getId().equals(list.get(i).getId())){
 				idCheck = "false";
@@ -247,7 +247,7 @@ public class AdminController extends HttpServlet{
 		}
 		
 	}
-	//»ñÈ¡¸öÈËÈÎÎñ
+	//è·å–ä¸ªäººä»»åŠ¡
 	@RequestMapping("listTask")
 	public @ResponseBody List<TaskEntity> listTask(HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][listTask][start]");
@@ -272,10 +272,10 @@ public class AdminController extends HttpServlet{
 		return listTask;
 	}
 	
-	//»ñÈ¡Msg
+	//è·å–Msg
 	@RequestMapping("getMsg")
 	public @ResponseBody Map<String, Object> getMsg(HttpServletRequest request){
-		//ÂÖÑ¯²»³ölog
+		//è½®è¯¢ä¸å‡ºlog
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		String id   = (String)request.getSession().getAttribute("id");
@@ -283,11 +283,11 @@ public class AdminController extends HttpServlet{
 		List<Map<String, Object>> list = myJbpmService.getPersonalMsg(id);
 		
 		List<String> listOfTaskID = new ArrayList<String>();
-		//Êı¾İ¿âµÄtaskÒ»ÀÀ
+		//æ•°æ®åº“çš„taskä¸€è§ˆ
 		for(int i=0;i<list.size();i++){
 			listOfTaskID.add(list.get(i).get("taskid").toString());
 		}
-		//Êı¾İ¿âµÄtaskÒ»ÀÀºÍsession±£´æµÄtaskÒ»ÀÀ±È½Ï£¬session±£´æµÄtaskÒ»ÀÀÃ»ÓĞµÄ»°£¬ÊÇĞÂÈÎÎñ
+		//æ•°æ®åº“çš„taskä¸€è§ˆå’Œsessionä¿å­˜çš„taskä¸€è§ˆæ¯”è¾ƒï¼Œsessionä¿å­˜çš„taskä¸€è§ˆæ²¡æœ‰çš„è¯ï¼Œæ˜¯æ–°ä»»åŠ¡
 		if ( request.getSession().getAttribute("listOfTaskID") != null ) {
 			sessListOfTaskId = request.getSession().getAttribute("listOfTaskID").toString();
 		}
@@ -296,7 +296,7 @@ public class AdminController extends HttpServlet{
 				result.put("msgsize", 0);
 			} else {
 				result.put("msgsize", 1);
-				//Ìø³öÑ­»·
+				//è·³å‡ºå¾ªç¯
 				i=listOfTaskID.size();
 			}
 			
@@ -307,7 +307,7 @@ public class AdminController extends HttpServlet{
 	}
 	
 	
-	//»ñÈ¡ÖØÃûÈËÔ±ÁĞ±í
+	//è·å–é‡åäººå‘˜åˆ—è¡¨
 	@RequestMapping("listNGnames")
 	public @ResponseBody List<UserEntity> listNGnames(){
 		logger.info("["+this.getClass().getName()+"][listNGnames][start]");
@@ -323,14 +323,14 @@ public class AdminController extends HttpServlet{
 
 
 	/**
-	 * ÏÔÊ¾Á÷³ÌÍ¼Æ¬
+	 * æ˜¾ç¤ºæµç¨‹å›¾ç‰‡
 	 * @param request
 	 * @param response
 	 * @param processInstanceId
 	 */
 	@RequestMapping("pic_")
 	public void pic_(HttpServletRequest request, HttpServletResponse response,String processInstanceId) {
-		//»ñÈ¡µ½Á÷³ÌµÄÍ¼Æ¬Á÷
+		//è·å–åˆ°æµç¨‹çš„å›¾ç‰‡æµ
 		InputStream inputStream = this.findProcessInstancePic(processInstanceId);
 		PrintWriter pw = null;
 		if (inputStream == null) {
@@ -370,15 +370,15 @@ public class AdminController extends HttpServlet{
 	}
 	
 	public InputStream findProcessInstancePic(String processInstanceId) {
-		//»ñÈ¡Á÷³ÌÊµÀı
+		//è·å–æµç¨‹å®ä¾‹
 		ProcessInstance processInstance = executionService.findProcessInstanceById(processInstanceId);
-		//»ñÈ¡Á÷³Ì¶¨Òåid
+		//è·å–æµç¨‹å®šä¹‰id
 		String processDefinitionId = processInstance.getProcessDefinitionId();
-		//»ñÈ¡µ½Â·³Ì¶¨Òå
+		//è·å–åˆ°è·¯ç¨‹å®šä¹‰
 		ProcessDefinition processDefinition = repositoryService
 				.createProcessDefinitionQuery()
 				.processDefinitionId(processDefinitionId).uniqueResult();
-		//»ñÈ¡Á÷³Ì¶¨ÒåÖĞµÄÍ¼Æ¬Á÷
+		//è·å–æµç¨‹å®šä¹‰ä¸­çš„å›¾ç‰‡æµ
 		return repositoryService.getResourceAsStream(
 				processDefinition.getDeploymentId(),
 				processDefinition.getImageResourceName());
@@ -401,7 +401,7 @@ public class AdminController extends HttpServlet{
 		return "picForAdmin";
 	}
 	/**
-	 * ÏÔÊ¾Á÷³Ì×ø±ê
+	 * æ˜¾ç¤ºæµç¨‹åæ ‡
 
 	 */
 	@RequestMapping("view_")
@@ -411,25 +411,25 @@ public class AdminController extends HttpServlet{
 		//System.out.println("view----taskId:"+taskId);
 		logger.info("["+this.getClass().getName()+"][view_][start]");
  		List<ActivityCoordinates> ac = null;
-		//Ã»ÓĞÍê³ÉµÄÁ÷³Ì
+		//æ²¡æœ‰å®Œæˆçš„æµç¨‹
 		if (taskid != null) {
-			// Á÷³ÌÍ¼µ±Ç°»î¶¯½Úµã
+			// æµç¨‹å›¾å½“å‰æ´»åŠ¨èŠ‚ç‚¹
 			logger.info("["+this.getClass().getName()+"][view_][taskId] is not null");
 			ActivityCoordinates activityCoordinates = this.findActivityCoordinates(id);
 
-			//»ñÈ¡µ½ÀúÊ·½Úµã
+			//è·å–åˆ°å†å²èŠ‚ç‚¹
 			if(activityCoordinates != null){
 				 ac = this.findHistoryActivityInfo(id);
-				//È¥µôµ±Ç°½Úµã
+				//å»æ‰å½“å‰èŠ‚ç‚¹
 				ac.remove(activityCoordinates);
 
 			}
 			request.setAttribute("activityCoordinates", activityCoordinates);
-		//ÒÑ¾­Íê³ÉµÄÁ÷³Ì
+		//å·²ç»å®Œæˆçš„æµç¨‹
 		} else {
 			logger.info("["+this.getClass().getName()+"][view_][taskId] is  null");
 			ac = this.findHistoryActivityInfo(id);
-			//È¥µôµ±Ç°½Úµã
+			//å»æ‰å½“å‰èŠ‚ç‚¹
 			//ActivityCoordinates activityCoordinates = this.findActivityCoordinates(id);
 			//ac.remove(activityCoordinates);
 		}
@@ -446,23 +446,23 @@ public class AdminController extends HttpServlet{
 		
 		return "pic";
 	}
-	//»ñÈ¡µ½µ±Ç°½Úµã
+	//è·å–åˆ°å½“å‰èŠ‚ç‚¹
 	public ActivityCoordinates findActivityCoordinates(String id) {
 
 		ProcessInstance processInstance = executionService.findProcessInstanceById(id);
 		if (null==processInstance||processInstance.isSuspended()) {
 			return null;
 		}
-		Set<String> activityNames = processInstance.findActiveActivityNames();//ºËĞÄ·½·¨
+		Set<String> activityNames = processInstance.findActiveActivityNames();//æ ¸å¿ƒæ–¹æ³•
 
 		return repositoryService.getActivityCoordinates(processInstance
 				.getProcessDefinitionId(), activityNames.iterator().next());
 
 	}
-	//»ñÈ¡µ½ÀúÊ·½Úµã
+	//è·å–åˆ°å†å²èŠ‚ç‚¹
 	public List<ActivityCoordinates> findHistoryActivityInfo(String processId) {
 		List<ActivityCoordinates> activityCoordinates = new ArrayList<ActivityCoordinates>();
-		//ºËĞÄ·½·¨
+		//æ ¸å¿ƒæ–¹æ³•
 		List<HistoryActivityInstance> hisIns = historyService.createHistoryActivityInstanceQuery().processInstanceId(processId).list();
 		
 		ProcessInstance processInstance = executionService.findProcessInstanceById(processId);
