@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ page import="com.lin.util.common" %>
 <!DOCTYPE html>
 <html >
 	<head>
@@ -103,8 +102,9 @@ margin-bottom: 0px;
     <tr>
     <td>密码:<input type="password" name="pas" class="form-control" placeholder="输入密码" />
                                                         <%
+    
                                                         String errorMSG = (String)request.getAttribute("errorMSG");
-                                                        if (common.isEmpty(errorMSG)){
+                                                        if (errorMSG == null || errorMSG.length() == 0 || "null".equals(errorMSG) ){
                                                             errorMSG ="";
                                                         }
                                                         %>

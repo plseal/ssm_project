@@ -11,9 +11,6 @@ import org.openxmlformats.schemas.drawingml.x2006.main.CTNonVisualDrawingProps;
 import org.openxmlformats.schemas.drawingml.x2006.main.CTPositiveSize2D;
 import org.openxmlformats.schemas.drawingml.x2006.wordprocessingDrawing.CTInline;
   
-/**
- * 鑷畾涔� XWPFDocument锛屽苟閲嶅啓 createPicture()鏂规硶
- */
 public class CustomXWPFDocument extends XWPFDocument {  
     public CustomXWPFDocument(InputStream in) throws IOException {  
         super(in);  
@@ -28,10 +25,7 @@ public class CustomXWPFDocument extends XWPFDocument {
     }  
   
     /**
-     * @param id
-     * @param width 瀹�
-     * @param height 楂�
-     * @param paragraph  娈佃惤
+
      */
     public void createPicture(int id, int width, int height,XWPFParagraph paragraph) {  
         final int EMU = 9525;  
@@ -94,7 +88,7 @@ public class CustomXWPFDocument extends XWPFDocument {
         
         CTNonVisualDrawingProps docPr = inline.addNewDocPr();    
         docPr.setId(id);   
-        docPr.setName("鍥剧墖" + id);    
-        docPr.setDescr("娴嬭瘯"); 
+        docPr.setName("name" + id);    
+        docPr.setDescr("description"); 
     }  
 }  
