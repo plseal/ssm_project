@@ -194,7 +194,7 @@
 
 					<ul class="nav nav-list">
 						<li>
-							<a href="javascript:goto_('${pageContext.request.contextPath}/zuzhitu/shiju/png_1.htm?Ver=20160607');">
+							<a href="javascript:goto_('${pageContext.request.contextPath}/zuzhitu/shiju/png_1.htm?Ver=20161003');">
 								
 								<span class="menu-text"> 安全责任网格实名制</span>
 							</a>
